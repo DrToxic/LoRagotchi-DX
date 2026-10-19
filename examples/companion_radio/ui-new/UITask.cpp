@@ -1,5 +1,6 @@
 #include "UITask.h"
 #include "PetResetConfirmation.h"
+#include "AdvertMenu.h"
 #include "../MyMesh.h"
 #ifdef ESP32
 #include <SPIFFS.h>
@@ -159,6 +160,8 @@ static uint8_t loRaFishSoundField = 0;
 static constexpr uint8_t LORAFISH_PAGE_COUNT = 8;
 static constexpr uint8_t LORAFISH_RESET_CONFIRM_PAGE = 17;
 static PetResetConfirmation loRaFishResetConfirmation;
+static constexpr uint8_t LORAFISH_ADVERT_PAGE = 18;
+static AdvertMenu loRaFishAdvertMenu;
 static int8_t loRaFishRfHistory[48] = {0};
 static uint8_t loRaFishRfHistoryCount = 0;
 static uint32_t loRaFishRfSeenSeq = 0;
@@ -371,7 +374,6 @@ static bool loRaFishCanBreed() {
   return false;
 #endif
 }
-static unsigned long loRaFishAdvertLastMs = 0;
 static uint8_t loRaFishAdvertOptionIndex() {
 #ifdef PIN_BUZZER
   return 7;
@@ -1604,9 +1606,31 @@ static void drawLoRaFishOptions(DisplayDriver& display, UITask* task) {
   else if (o==2 || o==3) display.drawTextCentered(w/2,56,"LONG:OPEN");
   else if (o==4) display.drawTextCentered(w/2,56,"LONG:SCHEDULE");
   else if (o==5) display.drawTextCentered(w/2,56,"LONG:PLAY GAME");
-  else if (o==loRaFishAdvertOptionIndex()) display.drawTextCentered(w/2,56,"LONG:ADVERT");
+  else if (o==loRaFishAdvertOptionIndex()) display.drawTextCentered(w/2,56,"LONG:OPEN");
   else if (o==loRaFishBreedOptionIndex()) display.drawTextCentered(w/2,56,"LONG:BREED");
   else display.drawTextCentered(w/2,56,"LONG:SOUNDS");
+}
+
+static void closeLoRaFishAdvertMenu() {
+  loRaFishAdvertMenu.close();
+  loRaFishPage = 5;
+  loRaFishOption = loRaFishAdvertOptionIndex();
+}
+
+static void drawLoRaFishAdvertMenu(DisplayDriver& display) {
+  const int w = display.width();
+  drawLoRaFishHeader(display, "SEND ADVERT", "");
+  display.setColor(UIColor::primary_txt);
+  static const char* labels[] = {"Local (zero-hop)", "Flood (multi-hop)", "Back"};
+  for (uint8_t row = 0; row < 3; row++) {
+    char line[24];
+    snprintf(line, sizeof(line), "%c %s",
+             row == static_cast<uint8_t>(loRaFishAdvertMenu.selected()) ? '>' : ' ', labels[row]);
+    display.setCursor(3, 18 + row * 11);
+    display.print(line);
+  }
+  display.setColor(UIColor::secondary_txt);
+  display.drawTextCentered(w/2, 56, "CLICK:MOVE HOLD:OK");
 }
 
 static void cancelLoRaFishReset() {
@@ -2470,6 +2494,7 @@ static void drawLoRaFish(DisplayDriver& display, UITask* task) {
     case 15: drawLoRaFishRenderSpeedMenu(display); break;
     case 16: drawLoRaFishGuessGame(display); break;
     case LORAFISH_RESET_CONFIRM_PAGE: drawLoRaFishResetConfirmation(display); break;
+    case LORAFISH_ADVERT_PAGE: drawLoRaFishAdvertMenu(display); break;
   #ifdef PIN_BUZZER
     case 14: drawLoRaFishSoundMenu(display); break;
   #endif
@@ -3029,6 +3054,11 @@ public:
 
   bool handleInput(char c) override {
 #ifdef LORAFISH_UI
+    if (loRaFishPage == LORAFISH_ADVERT_PAGE) {
+      if (c == KEY_PREV || c == KEY_LEFT) loRaFishAdvertMenu.previous();
+      else if (c == KEY_ENTER || c == KEY_NEXT || c == KEY_RIGHT) loRaFishAdvertMenu.next();
+      return true;
+    }
     if (loRaFishPage == LORAFISH_RESET_CONFIRM_PAGE) {
       if (c == KEY_ENTER || c == KEY_NEXT || c == KEY_PREV ||
           c == KEY_LEFT || c == KEY_RIGHT) {
@@ -3518,6 +3548,7 @@ void UITask::userLedHandler() {
 void UITask::setCurrScreen(UIScreen* c) {
 #ifdef LORAFISH_UI
   if (loRaFishPage == LORAFISH_RESET_CONFIRM_PAGE && c != home) cancelLoRaFishReset();
+  if (loRaFishPage == LORAFISH_ADVERT_PAGE && c != home) closeLoRaFishAdvertMenu();
 #endif
   curr = c;
   _next_refresh = 100;
@@ -3624,6 +3655,7 @@ void UITask::loop() {
   if (loragotchiDXHome.returned) {
     if (!loRaFishReturnNavigationHandled) {
       loRaFishResetConfirmation.cancel();
+      loRaFishAdvertMenu.close();
       loRaFishReturnNavigationHandled=true;
       loRaFishPage=0;
       _next_refresh=0;
@@ -3690,7 +3722,8 @@ void UITask::loop() {
     }
     if (keys.esc || keys.backspace) {
       loRaFishResetConfirmation.cancel();
-      loRaFishPage=0;  // Back to aquarium, never advances the menu.
+      if (loRaFishPage == LORAFISH_ADVERT_PAGE) closeLoRaFishAdvertMenu();
+      else loRaFishPage=0;  // Back to aquarium, never advances the menu.
       _next_refresh=0;
       if (_display) loRaFishRegisterDisplayActivity(*_display);
     } else if (keys.enter || keys.space) {
@@ -3698,7 +3731,7 @@ void UITask::loop() {
     } else if (right || down) {
       c=checkDisplayOn(KEY_NEXT);
     } else if (left || up) {
-      if (loRaFishPage == LORAFISH_RESET_CONFIRM_PAGE) {
+      if (loRaFishPage == LORAFISH_RESET_CONFIRM_PAGE || loRaFishPage == LORAFISH_ADVERT_PAGE) {
         c=checkDisplayOn(KEY_PREV);
       } else {
         // Existing LoRaFish UI is forward-only; reverse is handled locally.
@@ -3946,6 +3979,29 @@ char UITask::handleLongPress(char c) {
   }
 
 #ifdef LORAFISH_UI
+  if (loRaFishPage == LORAFISH_ADVERT_PAGE) {
+    const bool visible = _display && _display->isOn() && curr == home &&
+                         millis() >= _alert_expiry;
+    const uint32_t now = millis();
+    checkDisplayOn(0);  // A wake gesture must not transmit.
+    const auto result = loRaFishAdvertMenu.activate(now, visible,
+        [](bool flood) { return the_mesh.advert(flood); });
+    if (result == AdvertMenu::Result::Sent) {
+      closeLoRaFishAdvertMenu();
+      notify(UIEventType::ack);
+      showAlert("Advert queued!", 1000);
+    } else if (result == AdvertMenu::Result::Back) {
+      closeLoRaFishAdvertMenu();
+    } else if (result == AdvertMenu::Result::RateLimited) {
+      char message[24];
+      snprintf(message, sizeof(message), "Wait %lus", (unsigned long)loRaFishAdvertMenu.waitSeconds(now));
+      showAlert(message, 1000);
+    } else if (result == AdvertMenu::Result::Failed) {
+      showAlert("Advert failed", 1000);
+    }
+    _next_refresh = 0;
+    return 0;
+  }
   if (loRaFishPage == LORAFISH_RESET_CONFIRM_PAGE) {
     const bool visible = _display && _display->isOn() && curr == home &&
                          millis() >= _alert_expiry;
@@ -4123,14 +4179,12 @@ char UITask::handleLongPress(char c) {
       loRaFishPage=16;
       _next_refresh=0;
     } else if (loRaFishOption==loRaFishAdvertOptionIndex()) {
-      // Same advert as the stock home menu, at most one a minute.
-      if (loRaFishAdvertLastMs && millis()-loRaFishAdvertLastMs < 60000UL) {
-        showAlert("Advert wait",800);
-      } else {
-        loRaFishAdvertLastMs = millis();
-        notify(UIEventType::ack);
-        if (the_mesh.advert()) showAlert("Advert sent!",1000);
-        else showAlert("Advert failed..",1000);
+      const bool visible = _display && _display->isOn() && curr == home &&
+                           millis() >= _alert_expiry;
+      checkDisplayOn(0);
+      if (visible) {
+        loRaFishAdvertMenu.open();
+        loRaFishPage = LORAFISH_ADVERT_PAGE;
       }
       _next_refresh = 0;
     } else if (loRaFishCanBreed() && loRaFishOption==loRaFishBreedOptionIndex()) {
@@ -4155,6 +4209,11 @@ char UITask::handleLongPress(char c) {
 char UITask::handleDoubleClick(char c) {
   MESH_DEBUG_PRINTLN("UITask: double-click triggered");
 #ifdef LORAFISH_UI
+  if (loRaFishPage == LORAFISH_ADVERT_PAGE) {
+    closeLoRaFishAdvertMenu();
+    checkDisplayOn(0);
+    return 0;
+  }
   if (loRaFishPage == LORAFISH_RESET_CONFIRM_PAGE) {
     cancelLoRaFishReset();
     checkDisplayOn(0);

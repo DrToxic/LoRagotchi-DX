@@ -162,7 +162,7 @@ public:
 
   void loop();
   void handleCmdFrame(size_t len);
-  bool advert();
+  bool advert(bool flood = false);
   void enterCLIRescue();
 
   int  getRecentlyHeard(AdvertPath dest[], int max_num);

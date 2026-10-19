@@ -56,6 +56,7 @@ The main **Options** menu contains:
 - **Schedule & time**: configure sleep, wake, and UTC offset.
 - **Guess game**: play five rounds of higher/lower to earn happiness when mesh activity is quiet.
 - **Sound**: configure buzzer volume, wake/sleep cues, and message tone on buzzer-equipped builds.
+- **Send advert**: choose a local or flood advertisement, or go Back without sending.
 - **Breed with visitor**: appears when the local fish and a visiting fish are both Adult or Elder and no offspring egg is already pending.
 
 ### Resetting your pet safely
@@ -74,6 +75,26 @@ offspring egg, and cannot be undone. Color displays then open the starting-trait
 picker; monochrome displays start with monochrome traits. Display, schedule, and
 MeshCore settings, contacts, and channels are kept. Cancelling leaves your pet
 untouched; normal gameplay continues while the prompt is open.
+
+### Sending an advert
+
+Open **Options → Send advert** with a long-press. Opening the submenu does not
+send anything. Short-click selects an item; long-press activates it:
+
+- **Local (zero-hop)**: advertise to nearby nodes without repeater forwarding.
+- **Flood (multi-hop)**: advertise through the mesh using the configured default
+  scope and path-hash mode, just like a flood advert from the MeshCore app.
+- **Back**: return to Options without sending. Double-click also goes back.
+
+Once MeshCore accepts an advert for sending, the submenu closes automatically,
+**Send advert** stays selected in Options, and **Advert queued!** is shown briefly.
+This confirms queuing, not reception by another node. A sleeping display's first
+long-press only wakes it; it never sends an advert.
+
+Local and flood adverts share the existing one-minute UI cooldown. If it is too
+soon, the remaining wait is shown and the submenu stays open; Back still works.
+A failed attempt stays in the submenu for retry and does not start the cooldown.
+Both advert types keep your existing name and location-advertising policy.
 
 ### Guess game
 
