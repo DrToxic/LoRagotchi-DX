@@ -1,0 +1,84 @@
+name: Build LoRagotchi-DX release images
+
+on:
+  push:
+    branches: ['release/firmware-*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pin-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python3 test/ble/check_pairing_pin.py
+
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 5
+      matrix:
+        include:
+          - environment: Heltec_v3_LoRaFish_companion_ble
+            target: build
+          - environment: heltec_v4_LoRaFish_companion_ble
+            target: build
+          - environment: ThinkNode_M2_LoRaFish_companion_ble
+            target: build
+          - environment: Heltec_t096_LoRaFish_companion_ble
+            target: create_uf2
+          - environment: Heltec_t114_LoRaFish_companion_ble
+            target: create_uf2
+          - environment: LilyGo_TDeck_loragotchi_dx_ble
+            target: build
+          - environment: LilyGo_TDeck_loragotchi_dx_usb
+            target: build
+          - environment: cardputer_loragotchi
+            target: build
+          - environment: Tbeam_SX1262_LoRaFish_companion_ble
+            target: build
+          - environment: Tbeam_SX1276_LoRaFish_companion_ble
+            target: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install platformio==6.1.19
+      - name: Build exact LoRagotchi profile
+        env:
+          BUILD_ENV: ${{ matrix.environment }}
+          BUILD_TARGET: ${{ matrix.target }}
+        run: |
+          if [ "$BUILD_TARGET" = create_uf2 ]; then
+            pio run -e "$BUILD_ENV" -t create_uf2 -j 2
+          else
+            pio run -e "$BUILD_ENV" -j 2
+          fi
+      - name: Stage images and provenance
+        env:
+          BUILD_ENV: ${{ matrix.environment }}
+          BUILD_TARGET: ${{ matrix.target }}
+        run: |
+          mkdir -p release-artifact
+          if [ "$BUILD_TARGET" = create_uf2 ]; then
+            cp ".pio/build/$BUILD_ENV/firmware.uf2" release-artifact/
+          else
+            cp ".pio/build/$BUILD_ENV/firmware.bin" release-artifact/
+            cp ".pio/build/$BUILD_ENV/partitions.bin" release-artifact/
+          fi
+          git rev-parse HEAD > release-artifact/source-sha.txt
+          pio pkg list -e "$BUILD_ENV" > release-artifact/dependencies.txt
+          cd release-artifact
+          sha256sum * > SHA256SUMS
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.environment }}-${{ github.sha }}
+          path: release-artifact/
+          if-no-files-found: error
