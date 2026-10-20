@@ -1,0 +1,431 @@
+{
+  "base_commit": "1ce6fd13ef184480c1cb765e2f671b1ee4cdde90",
+  "policy": "TFT/OLED display-fitted devices only; no e-ink or screenless images. Experimental; not tested on real hardware.",
+  "targets": [
+    {
+      "environment": "Ebyte_EoRa-S3_LoRaGotchi_DX_ble",
+      "base_environment": "Ebyte_EoRa-S3_companion_radio_ble",
+      "display": "SSD1306Display",
+      "board": "ebyte_eora-s3",
+      "target": "build",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "GAT562_30S_Mesh_Kit_LoRaGotchi_DX_ble",
+      "base_environment": "GAT562_30S_Mesh_Kit_companion_radio_ble",
+      "display": "SSD1306Display",
+      "board": "rak4631",
+      "target": "create_uf2",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "GAT562_Mesh_Tracker_Pro_LoRaGotchi_DX_ble",
+      "base_environment": "GAT562_Mesh_Tracker_Pro_companion_radio_ble",
+      "display": "SSD1306Display",
+      "board": "rak4631",
+      "target": "create_uf2",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "GAT562_Mesh_Watch13_LoRaGotchi_DX_ble",
+      "base_environment": "GAT562_Mesh_Watch13_companion_radio_ble",
+      "display": "SSD1306Display",
+      "board": "rak4631",
+      "target": "create_uf2",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "Heltec_T190_LoRaGotchi_DX_ble",
+      "base_environment": "Heltec_T190_companion_radio_ble_",
+      "display": "ST7789Display",
+      "board": "heltec_t190",
+      "target": "build",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "Heltec_Wireless_Tracker_LoRaGotchi_DX_ble",
+      "base_environment": "Heltec_Wireless_Tracker_companion_radio_ble",
+      "display": "ST7735Display",
+      "board": "esp32-s3-devkitc-1",
+      "target": "build",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "Heltec_t1_LoRaGotchi_DX_ble",
+      "base_environment": "Heltec_t1_companion_radio_ble",
+      "display": "ST7735Display",
+      "board": "heltec_t1",
+      "target": "create_uf2",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "Heltec_v2_LoRaGotchi_DX_ble",
+      "base_environment": "Heltec_v2_companion_radio_ble",
+      "display": "SSD1306Display",
+      "board": "heltec_wifi_lora_32_V2",
+      "target": "build",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "KeepteenLT1_LoRaGotchi_DX_ble",
+      "base_environment": "KeepteenLT1_companion_radio_ble",
+      "display": "SSD1306Display",
+      "board": "keepteen_lt1",
+      "target": "create_uf2",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "LilyGo_T3S3_sx1262_LoRaGotchi_DX_ble",
+      "base_environment": "LilyGo_T3S3_sx1262_companion_radio_ble",
+      "display": "SSD1306Display",
+      "board": "t3_s3_v1_x",
+      "target": "build",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "LilyGo_T3S3_sx1276_LoRaGotchi_DX_ble",
+      "base_environment": "LilyGo_T3S3_sx1276_companion_radio_ble",
+      "display": "SSD1306Display",
+      "board": "t3_s3_v1_x",
+      "target": "build",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "LilyGo_TBeam_1W_LoRaGotchi_DX_ble",
+      "base_environment": "LilyGo_TBeam_1W_companion_radio_ble",
+      "display": "SH1106Display",
+      "board": "t_beam_1w",
+      "target": "build",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "LilyGo_TLora_V2_1_1_6_LoRaGotchi_DX_ble",
+      "base_environment": "LilyGo_TLora_V2_1_1_6_companion_radio_ble",
+      "display": "SSD1306Display",
+      "board": "ttgo-lora32-v1",
+      "target": "build",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "Meshadventurer_sx1262_LoRaGotchi_DX_ble",
+      "base_environment": "Meshadventurer_sx1262_companion_radio_ble",
+      "display": "SSD1306Display",
+      "board": "esp32doit-devkit-v1",
+      "target": "build",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "Meshadventurer_sx1268_LoRaGotchi_DX_ble",
+      "base_environment": "Meshadventurer_sx1268_companion_radio_ble",
+      "display": "SSD1306Display",
+      "board": "esp32doit-devkit-v1",
+      "target": "build",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "Meshtiny_LoRaGotchi_DX_ble",
+      "base_environment": "Meshtiny_companion_radio_ble",
+      "display": "SSD1306Display",
+      "board": "meshtiny",
+      "target": "create_uf2",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "Nano_G2_Ultra_LoRaGotchi_DX_ble",
+      "base_environment": "Nano_G2_Ultra_companion_radio_ble",
+      "display": "SH1106Display",
+      "board": "nano-g2-ultra",
+      "target": "create_uf2",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "ProMicro_LoRaGotchi_DX_ble",
+      "base_environment": "ProMicro_companion_radio_ble",
+      "display": "SSD1306Display",
+      "board": "promicro_nrf52840",
+      "target": "create_uf2",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "RAK_3401_LoRaGotchi_DX_ble",
+      "base_environment": "RAK_3401_companion_radio_ble",
+      "display": "SSD1306Display",
+      "board": "rak3401",
+      "target": "create_uf2",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "RAK_4631_LoRaGotchi_DX_ble",
+      "base_environment": "RAK_4631_companion_radio_ble",
+      "display": "SSD1306Display",
+      "board": "rak4631",
+      "target": "create_uf2",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "Station_G2_LoRaGotchi_DX_ble",
+      "base_environment": "Station_G2_companion_radio_ble",
+      "display": "SH1106Display",
+      "board": "station-g2",
+      "target": "build",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "Station_G3_ESP32_LoRaGotchi_DX_ble",
+      "base_environment": "Station_G3_ESP32_companion_radio_ble",
+      "display": "SH1106Display",
+      "board": "station-g3-esp32",
+      "target": "build",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "T_Beam_S3_Supreme_SX1262_LoRaGotchi_DX_ble",
+      "base_environment": "T_Beam_S3_Supreme_SX1262_companion_radio_ble",
+      "display": "SH1106Display",
+      "board": "t_beams3_supreme",
+      "target": "build",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "ThinkNode_M9_LoRaGotchi_DX_ble",
+      "base_environment": "ThinkNode_M9_companion_radio_ble_",
+      "display": "ST7789Display",
+      "board": "thinknode_m9",
+      "target": "build",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "WioTrackerL1-1W_LoRaGotchi_DX_ble",
+      "base_environment": "WioTrackerL1-1W_companion_radio_ble",
+      "display": "SH1106Display",
+      "board": "seeed-wio-tracker-l1",
+      "target": "create_uf2",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "WioTrackerL1_LoRaGotchi_DX_ble",
+      "base_environment": "WioTrackerL1_companion_radio_ble",
+      "display": "SH1106Display",
+      "board": "seeed-wio-tracker-l1",
+      "target": "create_uf2",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "Xiao_S3_WIO_LoRaGotchi_DX_ble",
+      "base_environment": "Xiao_S3_WIO_companion_radio_ble",
+      "display": "SSD1306Display",
+      "board": "seeed_xiao_esp32s3",
+      "target": "build",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "heltec_rc32_LoRaGotchi_DX_ble",
+      "base_environment": "heltec_rc32_companion_radio_ble",
+      "display": "NV3001BDisplay",
+      "board": "heltec-rc32",
+      "target": "build",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "heltec_tracker_v2_LoRaGotchi_DX_ble",
+      "base_environment": "heltec_tracker_v2_companion_radio_ble",
+      "display": "ST7735Display",
+      "board": "heltec_tracker_v2",
+      "target": "build",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "heltec_v4_r8_LoRaGotchi_DX_ble",
+      "base_environment": "heltec_v4_r8_companion_radio_ble",
+      "display": "SSD1306Display",
+      "board": "heltec_v4_r8",
+      "target": "build",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "heltec_v4_r8_tft_LoRaGotchi_DX_ble",
+      "base_environment": "heltec_v4_r8_tft_companion_radio_ble",
+      "display": "ST7789LCDDisplay",
+      "board": "heltec_v4_r8",
+      "target": "build",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "heltec_v4_tft_LoRaGotchi_DX_ble",
+      "base_environment": "heltec_v4_tft_companion_radio_ble",
+      "display": "ST7789LCDDisplay",
+      "board": "heltec_v4",
+      "target": "build",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "ikoka_handheld_nrf_e22_30dbm_096_LoRaGotchi_DX_ble",
+      "base_environment": "ikoka_handheld_nrf_e22_30dbm_096_companion_radio_ble",
+      "display": "SSD1306Display",
+      "board": "seeed-xiao-afruitnrf52-nrf52840",
+      "target": "create_uf2",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "ikoka_handheld_nrf_e22_30dbm_096_rotated_LoRaGotchi_DX_ble",
+      "base_environment": "ikoka_handheld_nrf_e22_30dbm_096_rotated_companion_radio_ble",
+      "display": "SSD1306Display",
+      "board": "seeed-xiao-afruitnrf52-nrf52840",
+      "target": "create_uf2",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "ikoka_stick_nrf_22dbm_LoRaGotchi_DX_ble",
+      "base_environment": "ikoka_stick_nrf_22dbm_companion_radio_ble",
+      "display": "SSD1306Display",
+      "board": "seeed-xiao-afruitnrf52-nrf52840",
+      "target": "create_uf2",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "ikoka_stick_nrf_30dbm_LoRaGotchi_DX_ble",
+      "base_environment": "ikoka_stick_nrf_30dbm_companion_radio_ble",
+      "display": "SSD1306Display",
+      "board": "seeed-xiao-afruitnrf52-nrf52840",
+      "target": "create_uf2",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "ikoka_stick_nrf_33dbm_LoRaGotchi_DX_ble",
+      "base_environment": "ikoka_stick_nrf_33dbm_companion_radio_ble",
+      "display": "SSD1306Display",
+      "board": "seeed-xiao-afruitnrf52-nrf52840",
+      "target": "create_uf2",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "meshnology_w12_LoRaGotchi_DX_ble",
+      "base_environment": "meshnology_w12_companion_radio_ble",
+      "display": "SSD1306Display",
+      "board": "meshnology_w12",
+      "target": "build",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "muzi_base_duo_superIO_LoRaGotchi_DX_ble",
+      "base_environment": "muzi_base_duo_superIO_companion_radio_ble",
+      "display": "SH1107Display",
+      "board": "muzi_base",
+      "target": "create_uf2",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "muzi_base_uno_superIO_LoRaGotchi_DX_ble",
+      "base_environment": "muzi_base_uno_superIO_companion_radio_ble",
+      "display": "SH1107Display",
+      "board": "muzi_base",
+      "target": "create_uf2",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "nibble_screen_connect_LoRaGotchi_DX_ble",
+      "base_environment": "nibble_screen_connect_companion_radio_ble_",
+      "display": "SSD1306Display",
+      "board": "esp32-s3-zero",
+      "target": "build",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    },
+    {
+      "environment": "nibble_zero_connect_LoRaGotchi_DX_ble",
+      "base_environment": "nibble_zero_connect_companion_radio_ble_",
+      "display": "SSD1306Display",
+      "board": "esp32-s3-zero",
+      "target": "build",
+      "experimental": true,
+      "hardware_tested": false,
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+    }
+  ],
+  "not_enabled": {
+    "Xiao_S3_companion_radio_ble": "Bare XIAO S3 profile has no mapped control button (PIN_USER_BTN=-1); display/button wiring needs a defined hardware variant.",
+    "LilyGo_T_Impulse_Plus_companion_radio_ble": "Inherited target explicitly leaves the button disabled until screen support is implemented.",
+    "LilyGo_T-Echo_Card_companion_radio_ble": "72x40 OLED requires a dedicated compact pet/menu layout; DX currently requires at least a 128x64 logical viewport."
+  }
+}
