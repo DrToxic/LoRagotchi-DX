@@ -130,7 +130,23 @@
       "target": "build",
       "experimental": true,
       "hardware_tested": false,
-      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported.",
+      "disabled_optional_sensors": [
+        "AHTX0",
+        "BME280",
+        "BMP280",
+        "SHTC3",
+        "SHT4X",
+        "LPS22HB",
+        "INA3221",
+        "INA219",
+        "INA226",
+        "INA260",
+        "MLX90614",
+        "VL53L0X",
+        "BME680",
+        "BMP085"
+      ]
     },
     {
       "environment": "Meshadventurer_sx1262_LoRaGotchi_DX_ble",
@@ -210,7 +226,23 @@
       "target": "build",
       "experimental": true,
       "hardware_tested": false,
-      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported.",
+      "disabled_optional_sensors": [
+        "AHTX0",
+        "BME280",
+        "BMP280",
+        "SHTC3",
+        "SHT4X",
+        "LPS22HB",
+        "INA3221",
+        "INA219",
+        "INA226",
+        "INA260",
+        "MLX90614",
+        "VL53L0X",
+        "BME680",
+        "BMP085"
+      ]
     },
     {
       "environment": "Station_G3_ESP32_LoRaGotchi_DX_ble",
@@ -220,7 +252,23 @@
       "target": "build",
       "experimental": true,
       "hardware_tested": false,
-      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported."
+      "required_hardware": "Matching TFT/OLED display and control input fitted; bare/screenless versions are not supported.",
+      "disabled_optional_sensors": [
+        "AHTX0",
+        "BME280",
+        "BMP280",
+        "SHTC3",
+        "SHT4X",
+        "LPS22HB",
+        "INA3221",
+        "INA219",
+        "INA226",
+        "INA260",
+        "MLX90614",
+        "VL53L0X",
+        "BME680",
+        "BMP085"
+      ]
     },
     {
       "environment": "T_Beam_S3_Supreme_SX1262_LoRaGotchi_DX_ble",
