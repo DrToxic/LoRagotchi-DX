@@ -12,7 +12,7 @@ class LoRaFishCommitFrame {
   char payload[112] = {};
 public:
   void prepare(const uint8_t* key, uint32_t tx, uint32_t fid, bool colour,
-               uint8_t body, uint8_t scales, uint8_t eyes, uint16_t tint) {
+               uint8_t body, uint8_t scales, uint8_t eyes, uint16_t tint, uint8_t monoPanel = 0) {
     memcpy(destination, key, sizeof(destination));
     transaction = tx;
     fish = fid;
@@ -24,6 +24,8 @@ public:
       const size_t used = strlen(payload);
       snprintf(payload + used, sizeof(payload) - used, "|H1|%u|%u|%u", body, scales, eyes);
     }
+    const size_t used = strlen(payload);
+    snprintf(payload + used, sizeof(payload) - used, "|P1|%u", (unsigned)(monoPanel < 3 ? monoPanel : 0));
   }
 
   const char* forVisit(const uint8_t* key, uint32_t tx, uint32_t fid) const {

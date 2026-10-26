@@ -37,7 +37,8 @@ static LoRaFishArrival loRaFishArrival;
 LoRaFishGuestReturn loragotchiDXGuestReturn;
 LoRaFishVisit loragotchiDXVisit;LoRaFishReservation loragotchiDXReservation;
 bool loragotchiDXLocalColorCapable=false,loragotchiDXLocalHasColorGenes=true,loragotchiDXReturnedFromMonochrome=false;
-uint8_t loragotchiDXLocalColorIndex=1,loragotchiDXLocalScalesColorIndex=2,loragotchiDXLocalEyesColorIndex=3;
+uint8_t loragotchiDXLocalColorIndex=1,loragotchiDXLocalScalesColorIndex=2,loragotchiDXLocalEyesColorIndex=3,loragotchiDXLocalMonoPanel=2;
+uint16_t loragotchiDXLocalMonoPixelTint=31;
 bool loragotchiEggMessage(const uint8_t*,const char*,char*,size_t){return false;}
 static unsigned saves=0;
 void loragotchiDXSave(){++saves;}
@@ -86,10 +87,11 @@ int main(){
  MyMesh m;ContactInfo owner,impostor;owner.id.pub_key[0]=1;impostor.id.pub_key[0]=2;m.contacts={owner,impostor};
  m.receive(owner,"LFG1|REQ|7|8|2|Fish");m.receive(owner,"LFG1|COMMIT|7|8|C|1|2|3|2016");
  assert(loragotchiDXGuest.present && loragotchiDXGuest.ownerKey[0]==1);
+ m.receive(owner,"LFG1|COMMIT|7|8|C|1|2|3|31|P1|2");assert(loragotchiDXGuest.monoPanel==2 && loragotchiDXGuest.monoPixelTint==31);
  m.receive(owner,"LFG1|COMMIT|7|8");assert(loragotchiDXGuest.color==1 && loragotchiDXGuest.scalesColor==2);
  m.receive(impostor,"LFG1|COMMIT|7|8|C|4|4|4|65535");m.receive(impostor,"LFG1|RECALL|7|8");
  assert(loragotchiDXGuest.color==1 && loragotchiDXGuestReturn.status==LoRaFishGuestReturn::Idle);
- puts("PASS production receive binds guest identity, preserves colour on short COMMIT");
+ puts("PASS production receive binds guest identity, preserves colour and panel profile on short COMMIT");
  assert(m.returnLoRaFishGuest());m.serviceLoRaFishGuestReturn();assert(m.sent.back()=="LFG1|RETURN|7|8|M");assert(m.destinations.back()==1);
  auto sends=m.sent.size();
  m.receive(owner,"LFG1|COMMIT|7|8");m.receive(owner,"LFG1|REQ|7|8|2|Fish");

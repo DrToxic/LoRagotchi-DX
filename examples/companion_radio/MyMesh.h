@@ -31,6 +31,7 @@ struct LoRaGotchiDXGuestState {
   uint8_t scalesColor=0;
   uint8_t eyesColor=0;
   uint16_t monoPixelTint=0xFFFF;
+  uint8_t monoPanel=0; // 0 Blue, 1 White, 2 Yellow/Blue; supplied by P1 extension.
   bool colorCapable=false;
   char guestName[24]="DX Fish";
   char homeName[32]="";
@@ -46,6 +47,8 @@ extern bool loragotchiDXLocalHasColorGenes;
 extern uint8_t loragotchiDXLocalColorIndex;
 extern uint8_t loragotchiDXLocalScalesColorIndex;
 extern uint8_t loragotchiDXLocalEyesColorIndex;
+extern uint8_t loragotchiDXLocalMonoPanel;
+extern uint16_t loragotchiDXLocalMonoPixelTint;
 extern bool loragotchiDXReturnedFromMonochrome;
 bool loragotchiEggMessage(const uint8_t* key, const char* text, char* reply, size_t size);
 void loragotchiDXLoad();

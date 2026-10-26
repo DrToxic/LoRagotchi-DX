@@ -20,6 +20,10 @@ pre=r'''
 #include "examples/companion_radio/LoRaFishColour.h"
 #include "examples/companion_radio/LoRaFishEgg.h"
 static bool loRaFishAdoptionEligible=false,loRaFishEggApplying=false;
+static bool loRaFishMonoDisplayNotice=false,loRaFishMonoDisplayColourKnown=false;
+static uint8_t loRaFishMonoDisplayColour=0;
+static constexpr uint8_t LORAFISH_MONO_DISPLAY_COLOUR_COUNT=3;
+static const char* loRaFishMonoDisplayColourNames[]={"Blue OLED","White OLED","Yellow/Blue OLED"};
 static LoRaFishEgg loRaFishEggSession;
 static void closeLoRaFishAdoption(){loRaFishAdoptionEligible=false;loRaFishEggSession.close();}
 static bool selectLoRaFishEggTank(bool){return false;}
@@ -208,7 +212,7 @@ short=block('bool handleInput(char c) override',home).replace('bool handleInput(
 parts.append(short)
 parts.append(r'''
 static uint8_t pageFor(LoRaFishSetting key){
-  const uint8_t pages[]={8,13,15,9,9,9,10,10,10,11,11,11,14,14,14,14};
+  const uint8_t pages[]={8,13,15,9,9,9,10,10,10,11,11,11,14,14,14,14,15};
   return pages[static_cast<uint8_t>(key)];
 }
 int main(){

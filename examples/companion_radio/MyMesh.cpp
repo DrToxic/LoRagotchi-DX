@@ -30,6 +30,8 @@ bool loragotchiDXLocalHasColorGenes = false;
 uint8_t loragotchiDXLocalColorIndex = 0;
 uint8_t loragotchiDXLocalScalesColorIndex = 0;
 uint8_t loragotchiDXLocalEyesColorIndex = 0;
+uint8_t loragotchiDXLocalMonoPanel = 0;
+uint16_t loragotchiDXLocalMonoPixelTint = LORAFISH_MONO_PIXEL_TINT_RGB565;
 bool loragotchiDXReturnedFromMonochrome = false;
 
 static constexpr uint32_t LORAFISH_DX_STATE_MAGIC = 0x4C464732UL; // "LFG2"
@@ -630,7 +632,7 @@ void MyMesh::queueMessage(const ContactInfo &from, uint8_t txt_type, mesh::Packe
       loRaFishCommitFrame.prepare(from.id.pub_key, tx, fid,
         loragotchiDXLocalHasColorGenes, loragotchiDXLocalColorIndex,
         loragotchiDXLocalScalesColorIndex, loragotchiDXLocalEyesColorIndex,
-        LORAFISH_MONO_PIXEL_TINT_RGB565);
+        loragotchiDXLocalMonoPixelTint, loragotchiDXLocalMonoPanel);
       // Duplicate acceptance cannot reset the retry budget or appearance.
       loragotchiDXVisit.begin(LoRaFishVisit::Commit, millis());
       int r=sendLoRaFishCommit(from);
@@ -674,6 +676,10 @@ void MyMesh::queueMessage(const ContactInfo &from, uint8_t txt_type, mesh::Packe
           loragotchiDXGuest.scalesColor=(fields>=5 && scalesColor<=6) ? (uint8_t)scalesColor : loragotchiDXGuest.color;
           loragotchiDXGuest.eyesColor=(fields>=6 && eyesColor<=6) ? (uint8_t)eyesColor : loragotchiDXGuest.color;
           loragotchiDXGuest.monoPixelTint=(fields>=7 && monoPixelTint<=0xFFFF) ? (uint16_t)monoPixelTint : 0xFFFF;
+          const char* panel=strstr(text, "|P1|"); unsigned panelValue=0;
+          if (panel && sscanf(panel, "|P1|%u", &panelValue)==1 && panelValue < 3)
+            loragotchiDXGuest.monoPanel=(uint8_t)panelValue;
+          else loragotchiDXGuest.monoPanel=0;
           if (hasHues) {
             loragotchiDXGuest.color=hueBody; loragotchiDXGuest.scalesColor=hueScales;
             loragotchiDXGuest.eyesColor=hueEyes;

@@ -33,7 +33,7 @@ public:
 
 enum class LoRaFishSetting : uint8_t {
   Theme, Brightness, Rendering, Scales, Body, Eyes, SleepHour, WakeHour, UtcOffset,
-  TimeoutAwake, TimeoutAsleep, DimAfter, Volume, WakeSound, SleepSound, MessageSound
+  TimeoutAwake, TimeoutAsleep, DimAfter, Volume, WakeSound, SleepSound, MessageSound, MonoDisplayColour
 };
 
 // Browsing is a draft: only Select produces a value to persist. Back cancels it.
