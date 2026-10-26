@@ -283,7 +283,8 @@ static constexpr uint8_t LORAFISH_COLOR_THEME_COUNT = sizeof(loRaFishThemes) / s
 static const char* loRaFishColorNames[] = {"Coral", "Tangerine", "Gold", "Mint", "Lagoon", "Orchid", "Mono"};
 static const char* loRaFishMonoDisplayColourNames[] = {"Blue OLED", "White OLED", "Yellow/Blue OLED"};
 static constexpr uint8_t LORAFISH_MONO_DISPLAY_COLOUR_COUNT = 3;
-static constexpr uint16_t loRaFishMonoDisplayTints[] = {0x001F, 0xFFFF, 0x001F};
+// Blue and yellow/blue SSD1306 panels emit cyan where the fish lives (bottom 3/4).
+static constexpr uint16_t loRaFishMonoDisplayTints[] = {0x03B0, 0xFFFF, 0x03B0};
 static uint16_t loRaFishMonoDisplayTint() {
   return loRaFishMonoDisplayTints[min(loRaFishMonoDisplayColour,
                                       (uint8_t)(LORAFISH_MONO_DISPLAY_COLOUR_COUNT - 1))];

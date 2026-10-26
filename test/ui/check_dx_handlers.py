@@ -87,7 +87,7 @@ int main(){
  MyMesh m;ContactInfo owner,impostor;owner.id.pub_key[0]=1;impostor.id.pub_key[0]=2;m.contacts={owner,impostor};
  m.receive(owner,"LFG1|REQ|7|8|2|Fish");m.receive(owner,"LFG1|COMMIT|7|8|C|1|2|3|2016");
  assert(loragotchiDXGuest.present && loragotchiDXGuest.ownerKey[0]==1);
- m.receive(owner,"LFG1|COMMIT|7|8|C|1|2|3|31|P1|2");assert(loragotchiDXGuest.monoPanel==2 && loragotchiDXGuest.monoPixelTint==31);
+ m.receive(owner,"LFG1|COMMIT|7|8|C|1|2|3|944|P1|2");assert(loragotchiDXGuest.monoPanel==2 && loragotchiDXGuest.monoPixelTint==944);
  m.receive(owner,"LFG1|COMMIT|7|8");assert(loragotchiDXGuest.color==1 && loragotchiDXGuest.scalesColor==2);
  m.receive(impostor,"LFG1|COMMIT|7|8|C|4|4|4|65535");m.receive(impostor,"LFG1|RECALL|7|8");
  assert(loragotchiDXGuest.color==1 && loragotchiDXGuestReturn.status==LoRaFishGuestReturn::Idle);

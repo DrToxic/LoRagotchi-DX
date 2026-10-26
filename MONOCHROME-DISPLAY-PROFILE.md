@@ -6,9 +6,9 @@ LoRagotchi-DX records the physical panel fitted to a monochrome host. It does no
 
 On monochrome hosts, **Display → Screen colour** offers:
 
-- **Blue OLED** — default; SSD1306/SH1106 128×64 panels, including the common Heltec V3-style blue OLED.
+- **Blue OLED** — default; SSD1306/SH1106 128×64 panels, including the common Heltec V3-style cyan-emitting blue OLED.
 - **White OLED** — SSD1306/SH1106 128×64 white panels.
-- **Yellow/Blue OLED** — SSD1306-compatible two-tone panels: yellow top quarter and blue lower three quarters.
+- **Yellow/Blue OLED** — SSD1306-compatible two-tone panels: yellow top quarter and cyan-emitting blue lower three quarters. The fish uses this lower region, so colour hosts render it cyan.
 
 A dismissible first-run screen explains the choice. Dismissing it accepts the Blue OLED default; selecting any profile persists it.
 
