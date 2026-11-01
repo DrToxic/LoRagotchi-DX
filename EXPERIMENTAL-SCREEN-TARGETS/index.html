@@ -16,7 +16,7 @@
         <link rel="prev" href="..">
       
       
-        <link rel="next" href="../WATER-PC-AQUARIUM-STARTER/">
+        <link rel="next" href="../RAK4630-EXPERIMENTAL/">
       
       
         
@@ -332,6 +332,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Tight-flash profiles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#current-size-blockers-2026-11-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Current size blockers (2026-11-01)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -360,6 +377,33 @@
   
 </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../RAK4630-EXPERIMENTAL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Experimental RAK4630 / RAK4631-compatible OLED builds
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -405,7 +449,7 @@
   <span class="md-ellipsis">
     
   
-    Water candidate 1 local verification
+    Water verification history and edition-split checks
   
 
     
@@ -811,10 +855,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_19" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_20" >
         
           
-          <label class="md-nav__link" for="__nav_19" id="__nav_19_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_20" id="__nav_20_label" tabindex="0">
             
   
   
@@ -832,8 +876,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_19_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_19">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_20_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_20">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1509,10 +1553,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_20" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_21" >
         
           
-          <label class="md-nav__link" for="__nav_20" id="__nav_20_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_21" id="__nav_21_label" tabindex="0">
             
   
   
@@ -1530,8 +1574,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_20_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_20">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_21_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_21">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1621,6 +1665,23 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Tight-flash profiles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#current-size-blockers-2026-11-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Current size blockers (2026-11-01)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1941,7 +2002,36 @@
 </tbody>
 </table>
 <h2 id="tight-flash-profiles">Tight-flash profiles</h2>
-<p>T-LoRa V2.1, Station G2 and Station G3 omit optional environmental/I2C sensor add-on drivers to fit the pet UI in their existing application partitions. Board battery readings, radio limits/pins, display/input, storage layouts, BLE, and configured GPS support are retained. These images do not support those optional environmental sensor add-ons; no repartitioning is required.</p>
+<p>T-LoRa V2.1, Station G2 and Station G3 omit optional environmental/I2C sensor add-on drivers to reduce pet UI image size while retaining their existing application partitions. Board battery readings, radio limits/pins, display/input, storage layouts, BLE, and configured GPS support are retained. These images do not support those optional environmental sensor add-ons. This is not a guarantee that every newer revision still fits.</p>
+<h3 id="current-size-blockers-2026-11-01">Current size blockers (2026-11-01)</h3>
+<p>The <a href="https://github.com/DrToxic/LoRagotchi-DX/actions/runs/41263409150">owner-fork main CI run at <code>251e631</code></a> passed 39 of 42 experimental firmware builds. These three images exceeded their unchanged 1,310,720-byte application limit:</p>
+<table>
+<thead>
+<tr>
+<th>Environment</th>
+<th style="text-align: right;">Program bytes</th>
+<th style="text-align: right;">Over limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LilyGo_TBeam_1W_LoRaGotchi_DX_ble</code></td>
+<td style="text-align: right;">1,319,581</td>
+<td style="text-align: right;">8,861</td>
+</tr>
+<tr>
+<td><code>Station_G2_LoRaGotchi_DX_ble</code></td>
+<td style="text-align: right;">1,324,353</td>
+<td style="text-align: right;">13,633</td>
+</tr>
+<tr>
+<td><code>Station_G3_ESP32_LoRaGotchi_DX_ble</code></td>
+<td style="text-align: right;">1,325,985</td>
+<td style="text-align: right;">15,265</td>
+</tr>
+</tbody>
+</table>
+<p>These profiles are blocked at that revision; do not treat a partial matrix as a new all-board release. The local reconciled candidate includes the separately tested default-DX/Water edition gates from <code>f740b4f</code>, so the above byte counts must not be presented as a new measurement of that candidate. A separate measured size-reduction decision and successful exact-revision builds are required. No partition enlargement, flash-size override, feature removal, or disabled size validation is implied. Older experimental-release build results remain tied to their original source revision.</p>
 <h2 id="not-enabled">Not enabled</h2>
 <p>E-ink profiles (Wireless Paper, E213/E290, T-Echo/T-Echo Lite, MeshPocket, ThinkNode M1/M5/M6/M8, Wio Tracker e-ink) and null/no-display profiles are intentionally excluded. The OLED T-Echo Card is a separate device and is not classified as e-ink.</p>
 <ul>

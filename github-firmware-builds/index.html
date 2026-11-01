@@ -280,6 +280,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../RAK4630-EXPERIMENTAL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Experimental RAK4630 / RAK4631-compatible OLED builds
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../WATER-PC-AQUARIUM-STARTER/" class="md-nav__link">
         
   
@@ -314,7 +341,7 @@
   <span class="md-ellipsis">
     
   
-    Water candidate 1 local verification
+    Water verification history and edition-split checks
   
 
     
@@ -451,6 +478,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GitHub-hosted DX firmware builds
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -467,6 +512,36 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#explicit-dx-water-edition-regression-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Explicit DX / Water edition regression images
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -730,10 +805,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_19" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_20" >
         
           
-          <label class="md-nav__link" for="__nav_19" id="__nav_19_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_20" id="__nav_20_label" tabindex="0">
             
   
   
@@ -751,8 +826,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_19_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_19">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_20_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_20">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1428,10 +1503,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_20" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_21" >
         
           
-          <label class="md-nav__link" for="__nav_20" id="__nav_20_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_21" id="__nav_21_label" tabindex="0">
             
   
   
@@ -1449,8 +1524,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_20_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_20">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_21_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_21">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1515,6 +1590,25 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#explicit-dx-water-edition-regression-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Explicit DX / Water edition regression images
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1570,6 +1664,14 @@ arrives. Failed experimental jobs do not cancel the remaining board jobs. Standa
 public GitHub-hosted Ubuntu runners are used; no self-hosted homelab runner or paid
 larger runner is configured. Hardware testing remains a separate status from build
 success, including for the previously exercised V3/V4/T096 targets.</p>
+<h2 id="explicit-dx-water-edition-regression-images">Explicit DX / Water edition regression images</h2>
+<p>The Water owner-board workflow now builds eight selected profiles: both editions
+of V3, V4 OLED and T096, plus both experimental RAK4630-module aliases. It runs
+its default/Water native and production host checks before compiling. Only the
+explicit water_* names select Water; existing standard/experimental names remain
+DX. See README for the full alias table and docs/RAK4630-EXPERIMENTAL.md for RAK
+hardware prerequisites. A listed alias is not automatically included in this
+bounded CI matrix, and a previous candidate build does not validate new source.</p>
 
 
 
