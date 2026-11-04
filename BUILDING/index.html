@@ -1953,6 +1953,10 @@ compile is not physical hardware acceptance.</p>
 <li>ESP32: <code>.pio/build/&lt;environment&gt;/firmware.bin</code> (application only, not an installer).</li>
 <li>nRF52: <code>.pio/build/&lt;environment&gt;/firmware.uf2</code>, after <code>-t create_uf2</code>.</li>
 </ul>
+<p>For the USB upload command, UF2 copy procedure and pre-install backup checklist,
+see <a href="../README.md#build-and-install-dx-water-or-air">README: build and install</a>.
+Use the same environment for building and installing; choose the exact board
+variant rather than a similarly named target.</p>
 <p>Do not assume an application BIN belongs at address zero. Station G2/G3 and
 T-Beam 1W now use a single factory app and no OTA; an app-only update cannot
 migrate an old partition table. Read the <a href="../SINGLE-APP-MIGRATION/">migration/data-loss warning</a>

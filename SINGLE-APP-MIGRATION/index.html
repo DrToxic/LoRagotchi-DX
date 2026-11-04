@@ -1741,9 +1741,9 @@
 
 
 <h1 id="experimental-single-app-layouts-station-g2-station-g3-esp32-t-beam-1w">Experimental single-app layouts: Station G2, Station G3 ESP32, T-Beam 1W</h1>
-<p>Only their LoRagotchi DX profiles and explicit Water aliases use
-variants/loragotchi_experimental/single_app.csv. Air aliases inherit it on the
-separate Air source line. Generic MeshCore companion/repeater/server profiles
+<p>Only their LoRagotchi DX profiles and explicit Water/Air aliases use
+<code>variants/loragotchi_experimental/single_app.csv</code> in the shared <code>main</code> source.
+Generic MeshCore companion/repeater/server profiles
 and every other LoRagotchi board keep their existing layouts. All three actual
 board JSON definitions specify ESP32-S3 with 16MB flash, not a generic 4MB ESP32.
 RF pins/power, GPS, PSRAM, features and existing optional-sensor choices are
