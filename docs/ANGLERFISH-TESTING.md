@@ -25,7 +25,10 @@ Native: 335/335 cases in native/native_water/native_air/native_kiss_modem.
 Production Python suites cover serializers on ESP32 and nRF52 mocks, all 15
 species and unknown uint16 IDs, old/truncated/corrupt settings, inheritance,
 Mystery persistence, explicit selection/Start pet, menu bounds, adoption and
-all existing lifecycle/happiness/custody checks.
+all existing lifecycle/happiness/custody checks. A preserved 14-choice registry
+fixture separately encodes old SPC1 records: resolved choices do not reroll on
+boot; unresolved/reselected choices use 15; formerly opaque 14 is recognized;
+15/65535 and mystery-colour mapping remain unchanged (both storage branches).
 
 Water pixels: 34,656 counted scenarios per style, three styles (103,968), plus
 explicit lure/stalk checks on both mono themes, two phases and four stages.
@@ -39,7 +42,10 @@ duplicate S1 rejection, immutable guest identity, loss of first Anglerfish
 COMMIT/frozen retries, exact S1/A1 negotiation, preserved old S1 Water unknown14
 retention/fish fallback, and the actual old RX nine-field/PC SQLite path.
 The last cross-repo check and busy-mesh check use read-only sibling checkouts;
-standalone CI explicitly prints them as NOT RUN, not silently passed.
+standalone CI explicitly prints them as NOT RUN, not silently passed. The strict
+legacy RX fixture is revision 808d41aa4b0a3541a77cf2901e00df8bd4f5ced3; its
+Aquarium decoder/SQLite fixture is af0fa374423f9eeea690c409082ac7cb6b6edac1.
+These are intentionally older-parser tests, not current downstream art support.
 
 ## Hosted device matrix
 
@@ -75,7 +81,8 @@ Pillow 12.1.0 reproduces LoRaFishWaterArt.h. CI needs no Pillow.
 
 See [Water extension contract](../WATER-EDITION.md#anglerfish-extension-and-mixed-registries).
 The catalogue expansion changes unresolved/reselected Water Mystery mapping;
-already selected species/eggs are persisted unchanged. H1 colour mapping and
+already selected species/eggs are persisted unchanged. Formerly opaque ID14
+now presents as Anglerfish; its saved numeric identity is not changed. H1 colour mapping and
 Air Mystery mapping do not change. No reset or save migration is needed.
 
 S1 is not a registry inventory or global registry namespace. External RX,

@@ -125,7 +125,9 @@ host framebuffer pixels, not photographed or electrically emulated panels.
 
 The original IDs 0..13, Air 256..273, every old 4,992-byte aquatic mask and all
 wire/save formats are unchanged. Mystery now samples all **15** Water choices.
-Saved selected species/pending eggs are never recomputed on load. An unresolved
+Saved selected species/pending eggs are never recomputed on load. A previously
+opaque saved/received ID 14 now displays as Anglerfish instead of fish; its
+number is unchanged. Other unknown IDs (15..255, 274..65535) remain fallbacks. An unresolved
 or explicitly reselected Mystery uses the expanded catalogue; the same seed can
 map differently than a 14-choice build. Mystery colours and Air choices are
 unchanged. Downgrading and reselecting Mystery can likewise change that result.
@@ -185,8 +187,9 @@ LFG1|RECALL|tx|fish
 LFG1|RETURN|tx|fish|mode[existing exact marker]
 ~~~
 
-Only the expected-peer/transaction **ACK ending exactly with S1** enables all
-optional H1/P1/S1 fields. Plain ACK produces the original **nine-field COMMIT**,
+Only the expected-peer/transaction ACK with the **exact S1 or S1|A1 suffix**
+enables optional H1/P1/S1 fields. Water advertises S1; A1 gates only Air IDs,
+not Anglerfish support. Plain ACK produces the original **nine-field COMMIT**,
 with nearest named-colour genes and existing RGB565 tint, no suffix at all. This
 is necessary: the inspected old RX parser requires exactly nine fields and
 otherwise captures absent appearance. Old DX/RX see a normal fish and retain

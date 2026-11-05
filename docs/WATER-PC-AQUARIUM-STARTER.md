@@ -49,7 +49,7 @@ are rendering-only sentinels, never persisted genes. Base fields are nearest leg
 palette; tint is uint16 RGB565. P1: 0 Blue, 1 White, 2 Yellow/Blue (fish lower region
 transfers cyan). Existing ARRIVED/RECALL/RETURN/CANCEL1/AQUARIUM1 remain unchanged.
 
-Only an exact expected-peer/transaction **ACK ending S1** enables optional fields.
+Only an exact expected-peer/transaction ACK with the **exact S1 or S1|A1 suffix** enables optional fields.
 A plain ACK produces exactly the old nine fields, no H1/P1/S1 suffix. Old RX requires
 n==9; do not advertise S1 until a new receiver actually preserves the metadata.
 Cache/retry the same complete negotiated COMMIT; test loss of the first COMMIT.
