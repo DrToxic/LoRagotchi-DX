@@ -728,6 +728,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#t190-colour-dx-water-air-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        T190 colour DX / Water / Air selection
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1121,6 +1132,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../t190-edition-targets-20261106/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T190 edition target repair — 2026-11-06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../terminal_chat_cli/" class="md-nav__link">
         
   
@@ -1156,10 +1194,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_33" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_34" >
         
           
-          <label class="md-nav__link" for="__nav_33" id="__nav_33_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_34" id="__nav_34_label" tabindex="0">
             
   
   
@@ -1177,8 +1215,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_33_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_33">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_34_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_34">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1854,10 +1892,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_34" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_35" >
         
           
-          <label class="md-nav__link" for="__nav_34" id="__nav_34_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_35" id="__nav_35_label" tabindex="0">
             
   
   
@@ -1875,8 +1913,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_34_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_34">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_35_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_35">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1958,6 +1996,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#t190-colour-dx-water-air-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        T190 colour DX / Water / Air selection
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2023,6 +2072,14 @@ explicit water_* names select Water; existing standard/experimental names remain
 DX. See README for the full alias table and docs/RAK4630-EXPERIMENTAL.md for RAK
 hardware prerequisites. A listed alias is not automatically included in this
 bounded CI matrix, and a previous candidate build does not validate new source.</p>
+<h2 id="t190-colour-dx-water-air-selection">T190 colour DX / Water / Air selection</h2>
+<p>Use <strong>Air DX and Water selected owner-board test images</strong> → <strong>Run workflow</strong>,
+select branch <code>fix/pet-followup-20261106</code>, board <strong>T190</strong>, and the desired
+edition (or <strong>all</strong> for three images). Existing board choices are retained.
+The experimental screen workflow remains DX-only. The generic MeshCore
+companion suffix selector in <code>build.sh</code> is not the habitat-edition matrix;
+<code>bash build.sh list</code> lists the aliases and explicit <code>build-firmware &lt;environment&gt;</code>
+accepts them. See <a href="../BUILDING/#t190-colour-edition-builds">commands and limitations</a>.</p>
 
 
 

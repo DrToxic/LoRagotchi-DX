@@ -45,7 +45,7 @@
     {
       "environment": "Heltec_T190_LoRaGotchi_DX_ble",
       "base_environment": "Heltec_T190_companion_radio_ble_",
-      "display": "ST7789Display",
+      "display": "ST7789LCDDisplay",
       "board": "heltec_t190",
       "target": "build",
       "experimental": true,
