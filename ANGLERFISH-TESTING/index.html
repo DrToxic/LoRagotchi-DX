@@ -416,7 +416,7 @@
   <span class="md-ellipsis">
     
   
-    Build DX, Water or Air from main
+    Build DX, Water, Air or Land from main
   
 
     
@@ -652,6 +652,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../creature-compatibility/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Creature compatibility: design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../docs/" class="md-nav__link">
         
   
@@ -660,6 +687,33 @@
     
   
     Local Documentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dxpro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DX-Pro edition
   
 
     
@@ -1254,10 +1308,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_35" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_37" >
         
           
-          <label class="md-nav__link" for="__nav_35" id="__nav_35_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_37" id="__nav_37_label" tabindex="0">
             
   
   
@@ -1275,8 +1329,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_35_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_35">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_37_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_37">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1952,10 +2006,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_36" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_38" >
         
           
-          <label class="md-nav__link" for="__nav_36" id="__nav_36_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_38" id="__nav_38_label" tabindex="0">
             
   
   
@@ -1973,8 +2027,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_36_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_36">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_38_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_38">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2062,10 +2116,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_37" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_39" >
         
           
-          <label class="md-nav__link" for="__nav_37" id="__nav_37_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_39" id="__nav_39_label" tabindex="0">
             
   
   
@@ -2083,8 +2137,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_37_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_37">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_39_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_39">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2259,7 +2313,10 @@ upstream are not changed. Publication is a review PR, not a merge/release/flash.
 Production Python suites cover serializers on ESP32 and nRF52 mocks, all 15
 species and unknown uint16 IDs, old/truncated/corrupt settings, inheritance,
 Mystery persistence, explicit selection/Start pet, menu bounds, adoption and
-all existing lifecycle/happiness/custody checks.</p>
+all existing lifecycle/happiness/custody checks. A preserved 14-choice registry
+fixture separately encodes old SPC1 records: resolved choices do not reroll on
+boot; unresolved/reselected choices use 15; formerly opaque 14 is recognized;
+15/65535 and mystery-colour mapping remain unchanged (both storage branches).</p>
 <p>Water pixels: 34,656 counted scenarios per style, three styles (103,968), plus
 explicit lure/stalk checks on both mono themes, two phases and four stages.
 Air pixels: 44,368 per style, three styles, including Water14 visitors.
@@ -2271,7 +2328,10 @@ duplicate S1 rejection, immutable guest identity, loss of first Anglerfish
 COMMIT/frozen retries, exact S1/A1 negotiation, preserved old S1 Water unknown14
 retention/fish fallback, and the actual old RX nine-field/PC SQLite path.
 The last cross-repo check and busy-mesh check use read-only sibling checkouts;
-standalone CI explicitly prints them as NOT RUN, not silently passed.</p>
+standalone CI explicitly prints them as NOT RUN, not silently passed. The strict
+legacy RX fixture is revision 808d41aa4b0a3541a77cf2901e00df8bd4f5ced3; its
+Aquarium decoder/SQLite fixture is af0fa374423f9eeea690c409082ac7cb6b6edac1.
+These are intentionally older-parser tests, not current downstream art support.</p>
 <h2 id="hosted-device-matrix">Hosted device matrix</h2>
 <p><a href="../.github/workflows/anglerfish-builds.yml">Dedicated workflow</a>: 14 unique Water
 configurations (10 standard, 4 experimental) plus six DX/Air controls (V3,
@@ -2300,7 +2360,8 @@ Pillow 12.1.0 reproduces LoRaFishWaterArt.h. CI needs no Pillow.</p>
 <h2 id="compatibility-physical-acceptance">Compatibility / physical acceptance</h2>
 <p>See <a href="../WATER-EDITION.md#anglerfish-extension-and-mixed-registries">Water extension contract</a>.
 The catalogue expansion changes unresolved/reselected Water Mystery mapping;
-already selected species/eggs are persisted unchanged. H1 colour mapping and
+already selected species/eggs are persisted unchanged. Formerly opaque ID14
+now presents as Anglerfish; its saved numeric identity is not changed. H1 colour mapping and
 Air Mystery mapping do not change. No reset or save migration is needed.</p>
 <p>S1 is not a registry inventory or global registry namespace. External RX,
 Aquarium, HA and Lodestar applications are not upgraded by this PR. Old peers

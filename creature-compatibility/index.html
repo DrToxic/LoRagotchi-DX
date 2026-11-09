@@ -1,0 +1,3829 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the open source MeshCore firmware">
+      
+      
+      
+        <link rel="canonical" href="https://meshcore-dev.github.io/meshcore/creature-compatibility/">
+      
+      
+        <link rel="prev" href="../companion_protocol/">
+      
+      
+        <link rel="next" href="../docs/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Creature compatibility: design - MeshCore Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../_stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#creature-compatibility-design" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="MeshCore Docs" class="md-header__button md-logo" aria-label="MeshCore Docs" data-md-component="logo">
+      
+  <img src="../_assets/meshcore.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MeshCore Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Creature compatibility: design
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/meshcore-dev/meshcore/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    meshcore-dev/meshcore
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="MeshCore Docs" class="md-nav__button md-logo" aria-label="MeshCore Docs" data-md-component="logo">
+      
+  <img src="../_assets/meshcore.svg" alt="logo">
+
+    </a>
+    MeshCore Docs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/meshcore-dev/meshcore/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    meshcore-dev/meshcore
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AIR-TESTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Air source verification — 2026-11-01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ANGLERFISH-TESTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Anglerfish Water extension: verification and limits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BUILDING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Build DX, Water, Air or Land from main
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EXPERIMENTAL-SCREEN-TARGETS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Experimental screen-equipped targets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../L1-CONTROLS-BRIGHTNESS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    L1 controls and SH1106 brightness follow-up
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../RAK4630-EXPERIMENTAL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Experimental RAK4630 / RAK4631-compatible OLED builds
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SINGLE-APP-MIGRATION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Experimental single-app layouts: Station G2, Station G3 ESP32, T-Beam 1W
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../WATER-PC-AQUARIUM-STARTER/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PC Aquarium Water integration — copyable starter prompt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../WATER-TESTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Water verification history and edition-split checks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli_commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI Commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../companion_protocol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Companion Protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Creature compatibility: design
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Creature compatibility: design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0-what-the-code-does-today-read-not-inferred" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. What the code does today (read, not inferred)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-every-creature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Every creature
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-compatibility-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Compatibility model
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Compatibility model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments-on-the-rules-i-am-unsure-about" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arguments on the rules I am unsure about
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-how-a-remote-peer-tells-us-its-capabilities-the-wire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. How a remote peer tells us its capabilities (the wire)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. How a remote peer tells us its capabilities (the wire)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-0-no-wire-change-at-all-smallest-possible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 0: no wire change at all (smallest possible)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-c1-capability-token-needed-for-dx-pro-optional-before" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: C1 capability token (needed for DX-Pro, optional before)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-replacing-the-emoji-markers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Replacing the emoji markers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-dx-pro-one-firmware-every-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. DX-Pro: one firmware, every set
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. DX-Pro: one firmware, every set">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-has-to-change-ids-do-not" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What has to change (IDs do not)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flash-and-ram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flash and RAM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-could-exceed-a-limit-per-board-app-limit-from-the-partition-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What could exceed a limit, per board (app limit from the partition tables)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-suggested-implementation-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Suggested implementation order
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-open-decisions-for-the-owner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Open decisions for the owner
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Local Documentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dxpro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DX-Pro edition
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../efficient-rendering-and-menu-save/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Efficient rendering and menu-close settings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../egg-memorial-art/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Egg and memorial art (2026-11-06)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frequently Asked Questions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../github-firmware-builds/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GitHub-hosted DX firmware builds
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kiss_modem_protocol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MeshCore KISS Modem Protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../legacy-visit-warning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Legacy-compatible visit warning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../native-display-layout/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Native-pixel LoRagotchi layouts — local implementation, 2026-11-07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nrf52_power_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    nRF52 Power Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../number_allocations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Number Allocations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../packet_format/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packet Format
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../payloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Payload Format
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pet-followup-status-20261106/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pet/UI follow-up — 2026-11-06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qr_codes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QR Codes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../radio_presets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Radio Presets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../runtime-display-orientation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Runtime display orientation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../runtime-display-updates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Runtime display updates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../species-motion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Species motion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stats_binary_frames/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stats Binary Frame Structures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../t190-colour-experimental/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Experimental T190 RGB565 display
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../t190-edition-targets-20261106/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T190 edition target repair — 2026-11-06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../terminal_chat_cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Terminal Chat CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_37" >
+        
+          
+          <label class="md-nav__link" for="__nav_37" id="__nav_37_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_37_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_37">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Development
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/LORAFISH_DX_BOOT_RESET/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LoRaFish DX boot-reset baseline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/LORAFISH_DX_RELIABLE_COMMIT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LoRaFish DX reliable COMMIT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/LORAFISH_DX_STATEFIX2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LoRaFish DX statefix2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/LORAFISH_DX_STATEFIX4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LoRaFish DX statefix4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/LORAFISH_DX_STATE_MIGRATION_V2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LoRaFish DX state migration v2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/LORAFISH_MESHCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LoRaFish MeshCore Edition v0.1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/LORAFISH_MESHCORE_V022/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LoRaFish MeshCore Edition v0.2.2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/LORAFISH_MESHCORE_V03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LoRaFish MeshCore Edition v0.3 — UI polish
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/LORAFISH_MESHCORE_V031/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LoRaFish MeshCore Edition v0.3.1 — Fish sprite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/LORAFISH_MESHCORE_V032/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LoRaFish MeshCore Edition v0.3.2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/LORAFISH_MESHCORE_V033/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LoRaFish MeshCore Edition v0.3.3 — RF Monitor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/LORAFISH_NODE_NAME_SYNC/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LoRaFish — MeshCore node-name sync
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/LORAFISH_V033_NAV_FIX/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LoRaFish v0.3.3 RF Monitor navigation fix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/LORAFISH_V034_MESH_TIME/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LoRaFish MeshCore Edition v0.3.4 — MeshCore Time Sync
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/LORAFISH_V034_RTC_COMPILE_FIX/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    v0.3.4 RTC compile fix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/LORAFISH_V0351_BACKGROUND_FEEDING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LoRaFish v0.3.5.1 — Background Feeding Logic Fix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/LORAFISH_V0352_SOUND_MOVEMENT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LoRaFish v0.3.5.2 — Sound + Feeding Movement Fix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/LORAFISH_V0353_BIG_STINKY_POOP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LoRaFish v0.3.5.3 — Bigger Poop + Animated Stink Lines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/LORAFISH_V0354_SLEEP_BEHAVIOUR/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LoRaFish v0.3.5.4 — Sleep Behaviour Fix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/LORAFISH_V035_HYGIENE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LoRaFish v0.3.5 — Tank Hygiene
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/LORAGOTCHI_DX_V044/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LORAGOTCHI DX V044
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/LORAGOTCHI_DX_V0442_CONTACT_FIX/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    v0.4.4.2 M2 DX contact selector fix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/LORAGOTCHI_DX_V045_RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LORAGOTCHI DX V045 RELIABILITY
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_38" >
+        
+          
+          <label class="md-nav__link" for="__nav_38" id="__nav_38_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glitch
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_38_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_38">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Glitch
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glitch/faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LoRaGotchi FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glitch/links/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Useful links
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_39" >
+        
+          
+          <label class="md-nav__link" for="__nav_39" id="__nav_39_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_39_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_39">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Release
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release/LORAGOTCHI_DX_V1.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LoRaGotchi DX v1.0 — M0YNW
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0-what-the-code-does-today-read-not-inferred" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. What the code does today (read, not inferred)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-every-creature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Every creature
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-compatibility-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Compatibility model
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Compatibility model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments-on-the-rules-i-am-unsure-about" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arguments on the rules I am unsure about
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-how-a-remote-peer-tells-us-its-capabilities-the-wire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. How a remote peer tells us its capabilities (the wire)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. How a remote peer tells us its capabilities (the wire)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-0-no-wire-change-at-all-smallest-possible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 0: no wire change at all (smallest possible)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-c1-capability-token-needed-for-dx-pro-optional-before" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: C1 capability token (needed for DX-Pro, optional before)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-replacing-the-emoji-markers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Replacing the emoji markers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-dx-pro-one-firmware-every-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. DX-Pro: one firmware, every set
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. DX-Pro: one firmware, every set">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-has-to-change-ids-do-not" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What has to change (IDs do not)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flash-and-ram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flash and RAM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-could-exceed-a-limit-per-board-app-limit-from-the-partition-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What could exceed a limit, per board (app limit from the partition tables)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-suggested-implementation-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Suggested implementation order
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-open-decisions-for-the-owner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Open decisions for the owner
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/meshcore-dev/meshcore/edit/main/docs/creature-compatibility.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="creature-compatibility-design">Creature compatibility: design</h1>
+<p>Status: DESIGN ONLY. No firmware code is changed by this document.
+Base: <code>origin/feat/land-edition</code> at <code>bbe1a7a</code> (main does not yet carry the Land registry, so
+this doc needs a rebase once Land is merged). Branch: <code>docs/creature-compatibility</code>.</p>
+<p>Everything marked <strong>R</strong> below was read in the code; <strong>I</strong> marks my inference. Nothing here has
+been built or run; flash/RAM numbers other than the quoted Heltec V3 builds are estimates.</p>
+<h2 id="0-what-the-code-does-today-read-not-inferred">0. What the code does today (read, not inferred)</h2>
+<ul>
+<li><strong>Registry</strong> (<code>examples/companion_radio/LoRaFishSpecies.h</code>): one shared ID space.
+  Water 0..14 (15), Air 256..273 (18), Land 512..550 (39), 72 species in total.
+  IDs are permanent. <code>known()</code> already accepts all three ranges; <code>editionKnown()</code> limits a
+  <em>build</em> to its own range. Water art is compiled into every species build, Air art only in
+  Air builds, Land art only in Land builds (sprite dispatch at UITask.cpp ~2111-2140: a Land
+  build draws Land + Water, an Air build draws Air + Water, a Water build draws Water only;
+  anything else is drawn as the fish).</li>
+<li><strong>Movement</strong> is already a per-species fact, but only for drawing: <code>movement()</code> returns
+  Swim / FlyMotion / Flutter / Walk / Crawl. It is <em>presentation</em>, nothing in the protocol uses it.</li>
+<li><strong>Visit handshake</strong> (MyMesh.cpp ~584-770), all text messages starting <code>LFG1|</code>:
+  <code>REQ|tx|fid|stage|name</code> (host parses <code>%lu|%lu|%u|%23[^\n]</code>), then <code>ACK|tx|fid</code> with a suffix
+  chosen by the <em>host's build</em>: none = DX, <code>|S1</code> = Water, <code>|S1|A1</code> = Air, <code>|S1|L1</code> = Land.
+  The visitor accepts only those exact strings (<code>acknowledged()</code>). Only after an accepted
+  suffix does it add <code>|S1|&lt;speciesId&gt;</code> to COMMIT; otherwise it sends the old nine-field COMMIT
+  and the pet is shown as the fish ("FISH FALLBACK"). Air/Land IDs need the matching
+  A1/L1 suffix; Water IDs pass with any S1 form. Other replies: <code>BUSY</code>, <code>RECALL</code>,
+  <code>RETURN|..|CANCEL1</code>. An unknown <code>LFG1|..</code> opcode is silently dropped (the block ends in <code>return;</code>).</li>
+<li>So there is <strong>no version field and no visitor-side capability</strong>. The host announces its
+  <em>edition</em> in the ACK; the host never learns the visitor's edition before COMMIT.</li>
+<li><strong>Who is eligible to visit</strong> is decided by a name marker only: <code>loRaFishDXEligible()</code>
+  (UITask.cpp ~2899) calls <code>LoRaFishText::hasFish()</code>, which is <code>hasDiscoveryMarker()</code>: the
+  four legacy fish emoji everywhere, plus Water markers (Water/Air/Land builds), Air markers
+  (Air build only), Land markers (Land build only). The code itself says markers are
+  "discovery hints only, never proof of habitat".</li>
+<li>Today the <em>only</em> compatibility rule is "does the host's build contain my art; if not,
+  show the fish". There is no concept of a land animal being unable to visit water.</li>
+</ul>
+<h2 id="1-every-creature">1. Every creature</h2>
+<p>Columns: <strong>Set</strong> = which registry range / edition it ships in. <strong>Habitat (home)</strong> = where
+its own tank is, i.e. what a visitor must be able to reach. <strong>Locomotion</strong> = how it moves.
+<strong>Basis</strong>: R = read in code (movement() or the registry comment), I = inferred from the name,
+R/I = code gives the motion and the name gives the rest. <strong>‡</strong> = my recommendation differs
+from, or adds to, what the code literally says; these are open decisions in section 7.</p>
+<p>Locomotion words map to abilities: swim = Swim; walk, crawl = Walk (ground); fly, flutter = Fly.
+Code reads: Water: all Swim. Air: Worm and Bug Crawl; Penguin, Flamingo, Peacock, Turkey,
+Rooster Walk; Honeybee, Butterfly, Fly Flutter; the rest FlyMotion. Land: Frog, Crocodile,
+Lizard, Turtle, Snake Crawl; Dragon, Dragon face, Phoenix FlyMotion; everything else Walk.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th style="text-align: right;">ID</th>
+<th>Set</th>
+<th>Habitat (home)</th>
+<th>Locomotion</th>
+<th>Mythic</th>
+<th>Basis</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tropical fish</td>
+<td style="text-align: right;">0</td>
+<td>Water</td>
+<td>water</td>
+<td>swim</td>
+<td>no</td>
+<td>R</td>
+<td>DX single fish</td>
+</tr>
+<tr>
+<td>Blowfish</td>
+<td style="text-align: right;">1</td>
+<td>Water</td>
+<td>water</td>
+<td>swim</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Shark</td>
+<td style="text-align: right;">2</td>
+<td>Water</td>
+<td>water</td>
+<td>swim</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Dolphin</td>
+<td style="text-align: right;">3</td>
+<td>Water</td>
+<td>water</td>
+<td>swim</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Whale</td>
+<td style="text-align: right;">4</td>
+<td>Water</td>
+<td>water</td>
+<td>swim</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Seal</td>
+<td style="text-align: right;">5</td>
+<td>Water</td>
+<td>water</td>
+<td>swim</td>
+<td>no</td>
+<td>R</td>
+<td>candidate: also walk (haul out) ‡</td>
+</tr>
+<tr>
+<td>Shrimp</td>
+<td style="text-align: right;">6</td>
+<td>Water</td>
+<td>water</td>
+<td>swim</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Squid</td>
+<td style="text-align: right;">7</td>
+<td>Water</td>
+<td>water</td>
+<td>swim</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Lobster</td>
+<td style="text-align: right;">8</td>
+<td>Water</td>
+<td>water</td>
+<td>swim</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Crab</td>
+<td style="text-align: right;">9</td>
+<td>Water</td>
+<td>water</td>
+<td>swim</td>
+<td>no</td>
+<td>R</td>
+<td>seabed crawler in art; stays water</td>
+</tr>
+<tr>
+<td>Octopus</td>
+<td style="text-align: right;">10</td>
+<td>Water</td>
+<td>water</td>
+<td>swim</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Jellyfish</td>
+<td style="text-align: right;">11</td>
+<td>Water</td>
+<td>water</td>
+<td>swim</td>
+<td>no</td>
+<td>R</td>
+<td>bell drift</td>
+</tr>
+<tr>
+<td>Shell-dweller</td>
+<td style="text-align: right;">12</td>
+<td>Water</td>
+<td>water</td>
+<td>swim</td>
+<td>no</td>
+<td>R</td>
+<td>snail-like sprite</td>
+</tr>
+<tr>
+<td>Sea star</td>
+<td style="text-align: right;">13</td>
+<td>Water</td>
+<td>water</td>
+<td>swim</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Anglerfish</td>
+<td style="text-align: right;">14</td>
+<td>Water</td>
+<td>water</td>
+<td>swim</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Eagle</td>
+<td style="text-align: right;">256</td>
+<td>Air</td>
+<td>air</td>
+<td>fly</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Bird</td>
+<td style="text-align: right;">257</td>
+<td>Air</td>
+<td>air</td>
+<td>fly</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Owl</td>
+<td style="text-align: right;">258</td>
+<td>Air</td>
+<td>air</td>
+<td>fly</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Duck</td>
+<td style="text-align: right;">259</td>
+<td>Air</td>
+<td>air</td>
+<td>fly</td>
+<td>no</td>
+<td>R</td>
+<td>candidate: also swim ‡</td>
+</tr>
+<tr>
+<td>Swan</td>
+<td style="text-align: right;">260</td>
+<td>Air</td>
+<td>air</td>
+<td>fly</td>
+<td>no</td>
+<td>R</td>
+<td>candidate: also swim ‡</td>
+</tr>
+<tr>
+<td>Penguin</td>
+<td style="text-align: right;">261</td>
+<td>Air</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td>code draws it as a walker; candidate: also swim ‡</td>
+</tr>
+<tr>
+<td>Parrot</td>
+<td style="text-align: right;">262</td>
+<td>Air</td>
+<td>air</td>
+<td>fly</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Flamingo</td>
+<td style="text-align: right;">263</td>
+<td>Air</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td>code: walker</td>
+</tr>
+<tr>
+<td>Peacock</td>
+<td style="text-align: right;">264</td>
+<td>Air</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td>code: walker</td>
+</tr>
+<tr>
+<td>Turkey</td>
+<td style="text-align: right;">265</td>
+<td>Air</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td>code: walker</td>
+</tr>
+<tr>
+<td>Rooster</td>
+<td style="text-align: right;">266</td>
+<td>Air</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td>code: walker</td>
+</tr>
+<tr>
+<td>Dove</td>
+<td style="text-align: right;">267</td>
+<td>Air</td>
+<td>air</td>
+<td>fly</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Bat</td>
+<td style="text-align: right;">268</td>
+<td>Air</td>
+<td>air</td>
+<td>fly</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Honeybee</td>
+<td style="text-align: right;">269</td>
+<td>Air</td>
+<td>air</td>
+<td>flutter</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Butterfly</td>
+<td style="text-align: right;">270</td>
+<td>Air</td>
+<td>air</td>
+<td>flutter</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Fly</td>
+<td style="text-align: right;">271</td>
+<td>Air</td>
+<td>air</td>
+<td>flutter</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Worm</td>
+<td style="text-align: right;">272</td>
+<td>Air</td>
+<td>land</td>
+<td>crawl</td>
+<td>no</td>
+<td>R</td>
+<td>code: crawler</td>
+</tr>
+<tr>
+<td>Bug</td>
+<td style="text-align: right;">273</td>
+<td>Air</td>
+<td>land</td>
+<td>crawl</td>
+<td>no</td>
+<td>R</td>
+<td>code: crawler</td>
+</tr>
+<tr>
+<td>Dog</td>
+<td style="text-align: right;">512</td>
+<td>Land</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Cat</td>
+<td style="text-align: right;">513</td>
+<td>Land</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Horse</td>
+<td style="text-align: right;">514</td>
+<td>Land</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Cow</td>
+<td style="text-align: right;">515</td>
+<td>Land</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Elephant</td>
+<td style="text-align: right;">516</td>
+<td>Land</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Pig</td>
+<td style="text-align: right;">517</td>
+<td>Land</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Ram</td>
+<td style="text-align: right;">518</td>
+<td>Land</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Sheep</td>
+<td style="text-align: right;">519</td>
+<td>Land</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Goat</td>
+<td style="text-align: right;">520</td>
+<td>Land</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Giraffe</td>
+<td style="text-align: right;">521</td>
+<td>Land</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Kangaroo</td>
+<td style="text-align: right;">522</td>
+<td>Land</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Llama</td>
+<td style="text-align: right;">523</td>
+<td>Land</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Deer</td>
+<td style="text-align: right;">524</td>
+<td>Land</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Mouse</td>
+<td style="text-align: right;">525</td>
+<td>Land</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Hamster</td>
+<td style="text-align: right;">526</td>
+<td>Land</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Rabbit</td>
+<td style="text-align: right;">527</td>
+<td>Land</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Hedgehog</td>
+<td style="text-align: right;">528</td>
+<td>Land</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Koala</td>
+<td style="text-align: right;">529</td>
+<td>Land</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Panda</td>
+<td style="text-align: right;">530</td>
+<td>Land</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Sloth</td>
+<td style="text-align: right;">531</td>
+<td>Land</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Otter</td>
+<td style="text-align: right;">532</td>
+<td>Land</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td>candidate: also swim ‡</td>
+</tr>
+<tr>
+<td>Skunk</td>
+<td style="text-align: right;">533</td>
+<td>Land</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Badger</td>
+<td style="text-align: right;">534</td>
+<td>Land</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Hippo</td>
+<td style="text-align: right;">535</td>
+<td>Land</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td>candidate: also swim ‡</td>
+</tr>
+<tr>
+<td>Rhino</td>
+<td style="text-align: right;">536</td>
+<td>Land</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Camel</td>
+<td style="text-align: right;">537</td>
+<td>Land</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Bactrian camel</td>
+<td style="text-align: right;">538</td>
+<td>Land</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Bison</td>
+<td style="text-align: right;">539</td>
+<td>Land</td>
+<td>land</td>
+<td>walk</td>
+<td>no</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>Frog</td>
+<td style="text-align: right;">540</td>
+<td>Land</td>
+<td>water+land (amphibious)</td>
+<td>swim+crawl</td>
+<td>no</td>
+<td>R/I</td>
+<td>amphibious by registry label; name implies</td>
+</tr>
+<tr>
+<td>Crocodile</td>
+<td style="text-align: right;">541</td>
+<td>Land</td>
+<td>water+land (amphibious)</td>
+<td>swim+crawl</td>
+<td>no</td>
+<td>R/I</td>
+<td>amphibious by registry label; name implies</td>
+</tr>
+<tr>
+<td>Lizard</td>
+<td style="text-align: right;">542</td>
+<td>Land</td>
+<td>land</td>
+<td>crawl</td>
+<td>no</td>
+<td>I</td>
+<td>registry says amphibious/reptile; recommend land-only ‡</td>
+</tr>
+<tr>
+<td>Turtle</td>
+<td style="text-align: right;">543</td>
+<td>Land</td>
+<td>water+land (amphibious)</td>
+<td>swim+crawl</td>
+<td>no</td>
+<td>R/I</td>
+<td>amphibious by registry label; name implies</td>
+</tr>
+<tr>
+<td>Snake</td>
+<td style="text-align: right;">544</td>
+<td>Land</td>
+<td>land</td>
+<td>crawl</td>
+<td>no</td>
+<td>I</td>
+<td>registry says amphibious/reptile; recommend land-only ‡</td>
+</tr>
+<tr>
+<td>Unicorn</td>
+<td style="text-align: right;">545</td>
+<td>Land</td>
+<td>land</td>
+<td>walk</td>
+<td>yes</td>
+<td>R</td>
+<td>mythic: horse-like, code walks</td>
+</tr>
+<tr>
+<td>Dragon</td>
+<td style="text-align: right;">546</td>
+<td>Land</td>
+<td>land+air</td>
+<td>fly+walk</td>
+<td>yes</td>
+<td>R/I</td>
+<td>mythic: code flies; walk and L+A home are my choice ‡</td>
+</tr>
+<tr>
+<td>Dragon face</td>
+<td style="text-align: right;">547</td>
+<td>Land</td>
+<td>land+air</td>
+<td>fly+walk</td>
+<td>yes</td>
+<td>I</td>
+<td>mythic: same creature as Dragon (inferred) ‡</td>
+</tr>
+<tr>
+<td>Phoenix</td>
+<td style="text-align: right;">548</td>
+<td>Land</td>
+<td>air</td>
+<td>fly</td>
+<td>yes</td>
+<td>R</td>
+<td>mythic: code flies; sky home</td>
+</tr>
+<tr>
+<td>Sauropod</td>
+<td style="text-align: right;">549</td>
+<td>Land</td>
+<td>land</td>
+<td>walk</td>
+<td>yes</td>
+<td>R</td>
+<td>listed as mythic by registry; extinct dinosaur, grounded</td>
+</tr>
+<tr>
+<td>T-Rex</td>
+<td style="text-align: right;">550</td>
+<td>Land</td>
+<td>land</td>
+<td>walk</td>
+<td>yes</td>
+<td>R</td>
+<td>listed as mythic by registry; extinct dinosaur, grounded</td>
+</tr>
+</tbody>
+</table>
+<p>Totals: 72 species. Water-only swimmers 15; grounded 40 (36 walk + 4 crawl); sky 12;
+amphibious 3; land+sky 2. Mythic (as the registry groups them): 6.</p>
+<p><strong>Mythic choices (explicit).</strong>
+- <em>Unicorn</em>: land, walk. It is horse-like and the code walks it. No wings, so no flight.
+- <em>Dragon</em> and <em>Dragon face</em>: <strong>land + air</strong> home, walk + fly. The code flies them, so they
+  must reach the sky; they also stand on the ground. Home = both so that a Land owner's
+  dragon can receive walkers and a sky owner's dragon can receive fliers. Dragon face is a
+  portrait of the same creature (I), so it is treated identically.
+- <em>Phoenix</em>: <strong>air</strong> home, fly (code flies it). Perches on land (the fly rule), so it can still
+  visit land hosts, but walkers cannot visit its tank. Alternative in section 7.
+- <em>Sauropod</em>, <em>T-Rex</em>: land, walk. They are extinct animals rather than myth; the registry
+  files them as "mythic", so I keep the Mythic flag but they behave as ground animals.
+- The Mythic flag changes no rule. It exists for display/rarity and future use.</p>
+<p><strong>Rows I am not sure about</strong> (all flagged ‡ or I above): Lizard and Snake (registry comment
+says "amphibious/reptiles"; I recommend land-only because nothing in the name implies water);
+Frog/Crocodile/Turtle amphibious (registry label, name agrees); Bug (the name is ambiguous,
+the code crawls it, the Air marker list uses the caterpillar emoji); Dragon face; and the
+"candidate: also swim/walk" animals Seal, Otter, Hippo, Duck, Swan, Penguin. I did <strong>not</strong>
+apply those upgrades because the code does not say so; the owner can switch any of them on
+by changing one table row.</p>
+<h2 id="2-compatibility-model">2. Compatibility model</h2>
+<p>Firmware-side, data-driven, no emoji. One byte per species in the registry:</p>
+<pre><code>Zone bits:   WATER=1  LAND=2  AIR=4     // used for sets, homes and reach alike
+Ability bits SWIM=1   WALK=2  FLY=4  MYTHIC=8   (bit 4 reserved for CLIMB)
+
+struct Traits { uint8_t home; uint8_t abilities; };   // 2 bytes x 72 = 144 bytes of flash
+set(id)   = Water / Air / Land by ID range           // already free from the ID
+reach(id) = home | (SWIM?WATER) | (WALK?LAND) | (FLY? AIR|LAND)
+canVisit(visitor, host) = set(visitor)==set(host)  ||  (reach(visitor) &amp; home(host)) != 0
+</code></pre>
+<p>Unknown or future IDs use the fish row (Water, Swim), which is what <code>renderId()</code> already does.
+Invariant for a host test: home is always a subset of reach, and the traits agree with
+<code>movement()</code> (Walk/Crawl rows have no FLY, FlyMotion/Flutter rows have FLY).</p>
+<h3 id="rules">Rules</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Rule</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R0</td>
+<td>Same set always visits same set</td>
+<td>Water-Water, Air-Air, Land-Land keep working exactly as today.</td>
+</tr>
+<tr>
+<td>R1</td>
+<td>Swim reaches WATER hosts</td>
+<td>A water animal visits water and amphibious hosts.</td>
+</tr>
+<tr>
+<td>R2</td>
+<td>Walk (and crawl) reaches LAND hosts</td>
+<td>A land animal visits land, amphibious and land+air hosts.</td>
+</tr>
+<tr>
+<td>R3</td>
+<td>Fly reaches AIR hosts and LAND hosts</td>
+<td>Fliers can visit sky tanks and perch on land.</td>
+</tr>
+<tr>
+<td>R4</td>
+<td>Fly alone does NOT reach WATER hosts</td>
+<td>A bat or eagle cannot visit a shark tank. Fliers get water access only with Swim.</td>
+</tr>
+<tr>
+<td>R5</td>
+<td>Amphibious (Swim+Walk) reaches WATER and LAND</td>
+<td>Frog, Crocodile, Turtle; and their hosts accept both swimmers and walkers.</td>
+</tr>
+<tr>
+<td>R6</td>
+<td>A walker cannot reach an AIR-only host</td>
+<td>"Not every creature that walks can fly." Dog cannot visit Eagle; Eagle can visit Dog.</td>
+</tr>
+<tr>
+<td>R7</td>
+<td>No Water creature has FLY</td>
+<td>"Very few water creatures can fly": in the current list none, so Water-to-Air is closed.</td>
+</tr>
+</tbody>
+</table>
+<p>Outcome by visitor type (cross-set; R0 aside). ✓ = allowed, ✗ = blocked.</p>
+<table>
+<thead>
+<tr>
+<th>Visitor can</th>
+<th>host WATER</th>
+<th>host LAND</th>
+<th>host AIR</th>
+<th>host WATER+LAND</th>
+<th>host LAND+AIR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Swim only (15 Water)</td>
+<td>✓</td>
+<td>✗</td>
+<td>✗</td>
+<td>✓</td>
+<td>✗</td>
+</tr>
+<tr>
+<td>Walk only (40 grounded)</td>
+<td>✗</td>
+<td>✓</td>
+<td>✗</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Fly only (12 sky)</td>
+<td>✗</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Swim + Walk (Frog, Crocodile, Turtle)</td>
+<td>✓</td>
+<td>✓</td>
+<td>✗</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Walk + Fly (Dragon, Dragon face)</td>
+<td>✗</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+</tbody>
+</table>
+<p>(Swim+Fly would reach everything; no species has it unless Duck/Swan are upgraded.)</p>
+<p>Species-pair counts that result (visitor species set, then host set; allowed / all pairs):
+Water to Water 225/225; Water to Air 0/270; Water to Land 45/585 (only the 3 amphibious
+hosts); Air to Air 324/324; Air to Water 0/270; Air to Land 695/702 (blocked only into the
+Phoenix tank by the 7 grounded Air-set birds and bugs); Land to Land 1521/1521; Land to Water
+45/585 (only the 3 amphibious visitors); Land to Air 306/702.</p>
+<h3 id="arguments-on-the-rules-i-am-unsure-about">Arguments on the rules I am unsure about</h3>
+<ul>
+<li><strong>R0 (same set always allowed).</strong> For: the grounded Air-set animals (Penguin, Turkey, Worm,
+  Bug...) would otherwise be unable to visit their own Air friends, which is a regression for
+  every Air player. It also keeps the old "I installed the Air edition, I can see Air friends"
+  promise. Against: it makes the habitat model only matter across editions, and it lets a Worm
+  visit an Eagle's sky tank. I recommend keeping it; the alternative is a per-species fix
+  (give the Air birds home AIR+LAND), which is more data to maintain.</li>
+<li><strong>R3 (Fly reaches LAND).</strong> Birds, bats and insects land; the sprite already draws fliers
+  hovering above a ground line in a land scene. Low risk. Without it, Land owners could never
+  receive any Air animal.</li>
+<li><strong>R4 (Fly does not reach WATER).</strong> The owner's draft rule says fliers may visit water hosts
+  "where they can perch or hover". The Water tank is an underwater scene; a honeybee in a
+  shark tank is wrong and there is no surface or perch drawn. I recommend: only Swim reaches
+  water, so waterfowl are the way in (Duck, Swan after upgrade). Variant B (any flier hovers
+  over water) is one line, section 7 item 2.</li>
+<li><strong>R5 hosts accept both.</strong> An amphibious host is a shore scene: both a swimmer and a walker
+  can plausibly meet it. The cost is that Shark can visit Frog and Dog can visit Frog, though
+  Shark and Dog still cannot visit each other. That is the intended asymmetry.</li>
+<li><strong>Climb.</strong> I left it out: it adds a bit but no rule (a climbing animal still reaches LAND).
+  Bit 4 is reserved so Koala/Sloth can get it later if the owner wants art/animation only.</li>
+<li><strong>Symmetry.</strong> Visits are <em>directional</em> (the visitor must reach the host's home). A pure
+  "share a habitat" rule would let Dog visit Eagle, contradicting the owner's examples.</li>
+</ul>
+<h2 id="3-how-a-remote-peer-tells-us-its-capabilities-the-wire">3. How a remote peer tells us its capabilities (the wire)</h2>
+<p>Two things must not be confused: <strong>can the host draw my art</strong> (art mask, exists today as
+S1/A1/L1) and <strong>may I visit this host</strong> (new, from the species traits). A host's <em>home</em> is
+needed, and a Dog cannot tell its host's home from today's ACK except by edition.</p>
+<h3 id="phase-0-no-wire-change-at-all-smallest-possible">Phase 0: no wire change at all (smallest possible)</h3>
+<p>The visitor already receives the host's edition in the ACK. Map it to the host's set and home:</p>
+<table>
+<thead>
+<tr>
+<th>ACK suffix</th>
+<th>Host set</th>
+<th>Host home</th>
+<th>Art host can draw</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>none (DX)</td>
+<td>Water (fish)</td>
+<td>WATER</td>
+<td>fish only</td>
+</tr>
+<tr>
+<td><code>S1</code></td>
+<td>Water</td>
+<td>WATER</td>
+<td>Water</td>
+</tr>
+<tr>
+<td><code>S1\|A1</code></td>
+<td>Air</td>
+<td>AIR</td>
+<td>Water + Air</td>
+</tr>
+<tr>
+<td><code>S1\|L1</code></td>
+<td>Land</td>
+<td>LAND</td>
+<td>Water + Land</td>
+</tr>
+</tbody>
+</table>
+<p>Then in the ACK handler, before <code>prepare()</code>, call <code>canVisit(localSpecies, hostSet, hostHome)</code>.
+If false, do what the BUSY branch already does (clear pending/committing/away, <code>visit.stop()</code>)
+and also send <code>LFG1|RECALL|tx|fid</code>: the host's existing RECALL branch with a reserved guest
+releases the reservation at once. Show a new message ("CAN'T REACH THAT HOME"). Fish
+fallback for missing art stays as it is. Lossiness: an Air-edition host that happens to own a
+Worm (really LAND) is treated as AIR, so walkers are refused. That is conservative.
+Older builds are untouched: nothing new is sent.</p>
+<h3 id="phase-1-c1-capability-token-needed-for-dx-pro-optional-before">Phase 1: C1 capability token (needed for DX-Pro, optional before)</h3>
+<p>Hosts in DX-Pro can hold any species, so the edition no longer says what the host <em>is</em>.
+Add two small tokens. Each digit is one hex character using the zone bits above.</p>
+<ul>
+<li>Visitor to host: add a second line to REQ: <code>LFG1|REQ|tx|fid|stage|name\nC1|&lt;set&gt;&lt;reach&gt;</code>
+  e.g. a Frog visitor (set Land=2, reach WATER+LAND=3): <code>C1|23</code>.</li>
+<li>Host to visitor, only when the REQ carried <code>C1</code>: <code>LFG1|ACK|tx|fid|S1|C1|&lt;set&gt;&lt;home&gt;&lt;art&gt;</code>
+  e.g. a Dog host (set Land=2, home LAND=2) in a build that carries Water and Land art
+  (1+2=3): <code>S1|C1|223</code>.</li>
+<li>Host-side refusal: reply <code>LFG1|BUSY|tx|fid|NC1</code> without reserving the slot. Legacy visitors
+  parse only the prefix and treat it as BUSY; new visitors read NC1 as "not compatible".</li>
+</ul>
+<p><strong>Does it break older builds? No, by construction:</strong>
+- Legacy host receiving a new REQ: its parser stops the name at the first newline
+  (<code>%23[^\n]</code>), so the <code>C1</code> line is ignored; it replies with its old ACK; the new visitor
+  falls back to Phase 0 logic. (To verify on hardware/CI: that a newline survives the
+  MeshCore text path unchanged. If not, send the line as a separate <code>LFG1|CAP|..</code> message;
+  legacy drops unknown LFG1 opcodes silently, at the cost of one extra packet.)
+- Legacy visitor (including every DX-only build) receiving from a new host: no <code>C1</code> in the
+  REQ, so the host answers with the <em>legacy</em> ACK form for its current pet's set (none/S1/
+  S1|A1/S1|L1), exactly as today. A new suffix must never be sent to a legacy visitor,
+  because <code>acknowledged()</code> is a strict whole-string match and would downgrade the visit to
+  the fish.
+- Unannounced visitors (no <code>C1</code>): the host cannot evaluate them. Recommended policy:
+  allow, and they are shown as today (species by S1, otherwise the fish). Alternative is deny;
+  section 7 item 3. The host should still re-check the species in COMMIT (it can look the ID
+  up in its own registry) and answer <code>RETURN|..|CANCEL1</code> if the owner chose "deny".
+- If old Water/Air/Land test builds need not stay at full fidelity (the docs say no release has been made), the
+  REQ line can be dropped and the C1 suffix put straight on the ACK; old species builds would
+  then show new-host visitors as the fish. I recommend the REQ line anyway: it costs ~5 bytes.</p>
+<p>Budget: REQ ~ 33 + 23 name + 1 + 5 ~ 62 bytes (buffers are 112); ACK ~ 40 bytes (buffer 80).
+No change to COMMIT, ARRIVED, RETURN, RECALL or the saved records.</p>
+<h2 id="4-replacing-the-emoji-markers">4. Replacing the emoji markers</h2>
+<p>Honest limit: a contact's advert carries only a name, so the visitor does <strong>not</strong> know the
+host's species before the handshake. A registry lookup therefore cannot replace the marker for
+<em>discovery</em>; it replaces it for <em>compatibility</em>.</p>
+<ol>
+<li><strong>Discovery</strong> stays name-based but is generated from the registry: add one <code>glyph</code>
+   codepoint column to the species table (72 entries, ~300 bytes). <code>isWaterMarker</code>,
+   <code>isAirMarker</code>, <code>isLandMarker</code> (three hand-kept switches) become one lookup
+   <code>speciesForGlyph(code)</code>. A name is a LoRagotchi tank if it contains any registry glyph.</li>
+<li><strong>Compatibility</strong> is decided by the handshake and the traits (sections 2 and 3), never by
+   the name. The glyph is also a <em>hint</em>: <code>speciesForGlyph</code> gives a guessed host species, so
+   the picker can mark contacts that probably cannot be visited. The hint never blocks
+   sending; the ACK or the host's BUSY|NC1 is final.</li>
+<li><strong>Existing contact names</strong> keep working with no rename: 🐟 🐠 🐡 🦈 (fish), the Water/Air/Land
+   emoji and 💦 all stay valid markers. Names with several markers use the first glyph for the
+   hint. Names with no marker are not listed, as today. Phoenix still has no single-codepoint
+   glyph and stays unmarked (comment in LoRaFishText.h).</li>
+<li><strong>Which builds see which markers.</strong> Today an Air build ignores Land markers, which would
+   hide Land friends it can now visit. New rule: every <em>species</em> build recognises the union of
+   all glyphs (compatibility is the handshake's job). <strong>DX-only builds keep exactly the four
+   fish glyphs and the <code>&gt;&lt;&gt;</code> display fallback</strong>; there is no reason to change them (they have
+   no species to compare).</li>
+<li>Display fallback for the small fonts: <code>&gt;&lt;&gt;</code> for fish, [W] / [A] / [L] by the glyph's set
+   (replaces the three-way ternary in <code>display()</code>).</li>
+<li>The "Add a Water/Air/Land emoji to your name" notice (UITask.cpp ~3712) becomes
+   "Add an animal emoji" in DX-Pro; per-edition text is unchanged elsewhere.</li>
+<li><code>protocolName()</code> keeps stripping every emoji from the wire name, unchanged.</li>
+</ol>
+<h2 id="5-dx-pro-one-firmware-every-set">5. DX-Pro: one firmware, every set</h2>
+<h3 id="what-has-to-change-ids-do-not">What has to change (IDs do not)</h3>
+<ul>
+<li><strong>IDs: no change.</strong> The ID space is already disjoint and permanent, and <code>known()</code> already
+  accepts all three ranges. Saves (SPC1, 18 bytes) store the ID, so a pet created in any
+  edition loads in DX-Pro.</li>
+<li><strong>Build flag.</strong> Replace "select one habitat edition" (#error in LoRaGotchiVersion.h) with a
+  set mask using the same zone bits (WATER=1, LAND=2, AIR=4; or one PRO flag = all three). <code>editionKnown(id)</code> becomes
+  <code>ownsSet(set(id))</code>. Existing single-set builds keep working as masks of one bit.</li>
+<li><strong>Art and dispatch.</strong> Include all three sprite headers; the compile-time #if chain at UITask
+  ~2111-2140 becomes a per-ID branch (Land ID -&gt; Land sprite, Air ID -&gt; Air sprite, else Water).</li>
+<li><strong>Menu.</strong> <code>selectableCount</code>, <code>selectionId</code>, <code>selectionIndex</code>, <code>freshSpecies</code>, and
+  <code>mystery(seed)</code> are compile-time constants for one range. For 72 species use two steps:
+  pick the <strong>set</strong> (Water / Air / Land), then the species in that set (largest list stays 39,
+  the Land length today). Only the species ID is persisted, the set is derived from it, so no
+  save-format change. Mystery egg: draw inside the chosen set with the same formula as today
+  (set count and base), so an existing seed gives the same animal as in the single-set build.
+  The value picker count is a uint8_t and would still hold 73 entries, so a flat list is
+  technically possible but not recommended.</li>
+<li><strong>UI strings</strong> ("CHOOSE LAND PET" etc.) become "CHOOSE PET" with the set name.</li>
+<li><strong>Breeding</strong> (<code>editionKnown(guest.species)</code> at UITask ~993) becomes <code>ownsSet()</code>: any set
+  the device owns. Cross-set eggs are reachable only through allowed visits.</li>
+<li><strong>Wire.</strong> A DX-Pro host answers legacy visitors with the legacy ACK of its <em>current pet's</em>
+  set, and <code>C1</code> visitors with section 3. Receiving already accepts every known ID.</li>
+<li><strong>Targets/CI.</strong> Add <code>pro_*</code> aliases for the 16 screen boards, extend
+  <code>test/boards/check_edition_targets.py</code> and add a <code>native_pro</code> test environment.</li>
+</ul>
+<h3 id="flash-and-ram">Flash and RAM</h3>
+<p>Measured on Heltec V3 (quoted from the earlier builds, logs in /tmp/land-{water,air,land}_heltec_v3_ble.log):</p>
+<table>
+<thead>
+<tr>
+<th>Build</th>
+<th style="text-align: right;">Flash used</th>
+<th style="text-align: right;">% of 3,342,336</th>
+<th style="text-align: right;">Static RAM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Water</td>
+<td style="text-align: right;">1,346,221</td>
+<td style="text-align: right;">40.3%</td>
+<td style="text-align: right;">174,780</td>
+</tr>
+<tr>
+<td>Air</td>
+<td style="text-align: right;">1,353,845</td>
+<td style="text-align: right;">40.5%</td>
+<td style="text-align: right;">174,780</td>
+</tr>
+<tr>
+<td>Land</td>
+<td style="text-align: right;">1,362,017</td>
+<td style="text-align: right;">40.8%</td>
+<td style="text-align: right;">174,780</td>
+</tr>
+</tbody>
+</table>
+<p>Air costs +7,624 over Water (its art is 6,912 bytes); Land costs +15,796 (art 14,976 bytes).
+So the extra sets cost almost exactly their art, and <strong>RAM is identical</strong> (the masks are
+constant data in flash).</p>
+<p><strong>DX-Pro estimate (Heltec V3):</strong> 1,346,221 + 7,624 + 15,796 = 1,369,641, plus runtime
+set-dispatch, the two-step menu and the 144-byte trait table, say +5 to 10 KB: <strong>about 1.375
+to 1.38 MB, roughly 41-42% of the app partition</strong> (about 1.96 MB spare). RAM about 174,780
+plus a few hundred bytes (still ~53%). The static numbers say nothing about heap or stack
+during the sprite draws; those are unmeasured.</p>
+<h3 id="what-could-exceed-a-limit-per-board-app-limit-from-the-partition-tables">What could exceed a limit, per board (app limit from the partition tables)</h3>
+<p>Quantities below the V3 line are estimates built from the nearest measured numbers.</p>
+<table>
+<thead>
+<tr>
+<th>Board (16 screen targets)</th>
+<th>Chip / app limit</th>
+<th>Evidence</th>
+<th>DX-Pro verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Heltec V3</td>
+<td>ESP32-S3, 3,342,336</td>
+<td>measured Water/Air/Land</td>
+<td><strong>Fits</strong>, ~1.38 MB (41%)</td>
+</tr>
+<tr>
+<td>M5Stack Cardputer</td>
+<td>ESP32-S3, 3,342,336</td>
+<td>DX build measured 1,496,105 (44.8%)</td>
+<td><strong>Fits</strong>, est. 1.53-1.56 MB (~47%)</td>
+</tr>
+<tr>
+<td>Heltec V4 OLED</td>
+<td>ESP32-S3, 6,553,600</td>
+<td>same family as V3</td>
+<td><strong>Fits</strong>, est. ~21%</td>
+</tr>
+<tr>
+<td>T-Deck (BLE and USB)</td>
+<td>ESP32-S3, 6,553,600</td>
+<td>DX build measured ~1,300,650 (19.8%)</td>
+<td><strong>Fits</strong>, est. ~21%</td>
+</tr>
+<tr>
+<td>Heltec T190</td>
+<td>ESP32-S3, 6,553,600</td>
+<td>default_16MB table</td>
+<td><strong>Fits</strong>, est. ~21%</td>
+</tr>
+<tr>
+<td>ThinkNode M2</td>
+<td>ESP32-S3, single app 2,621,440</td>
+<td>README: DX about 42% after repartition</td>
+<td><strong>Fits</strong>, est. ~44%</td>
+</tr>
+<tr>
+<td>T-Beam 1W, Station G2, Station G3</td>
+<td>ESP32-S3, single app 2,621,440</td>
+<td>last DX builds 1,319,581 / 1,324,353 / 1,325,985 on the OLD 1,310,720 slot</td>
+<td><strong>Fits only on the new single-app table</strong>, est. 1.37-1.42 MB (~53%). They do not fit the old 1,310,720 slot even as plain DX, so DX-Pro adds nothing new to that problem.</td>
+</tr>
+<tr>
+<td>Heltec T114, Heltec T096, RAK4631, RAK4630</td>
+<td>nRF52840, 712,704</td>
+<td><strong>no measured edition build in the repo</strong></td>
+<td><strong>Unknown, the real risk.</strong> DX-Pro adds ~23-33 KB, about 3-5% of the limit. Fits only if today's Land build is more than ~35 KB under 712,704.</td>
+</tr>
+<tr>
+<td>Wio Tracker L1, L1 1W</td>
+<td>nRF52840, 708,608</td>
+<td>no measurement</td>
+<td><strong>Unknown</strong>, same arithmetic with the smaller limit.</td>
+</tr>
+</tbody>
+</table>
+<p>No board is proven unable to fit. No nRF52 toolchain is installed on this machine and no
+nRF sizes are recorded in the repo or docs (CI logs need GitHub login I do not have), so I
+could not measure them. If an nRF Land build turns out to be within ~35 KB of its limit,
+those six boards should keep per-set builds (DX / Water / Air / Land) rather than DX-Pro.
+Boards outside the 16 (4 MB min_spiffs ESP32, 229,376-byte repeaters) are DX-only and out of
+scope for any species build, so not DX-Pro candidates either.</p>
+<h2 id="6-suggested-implementation-order">6. Suggested implementation order</h2>
+<ol>
+<li>Traits table + <code>canVisit()</code> + host tests (no behaviour change yet): invariants in section 2.</li>
+<li>Phase 0 visitor gate and the "can't reach" message, Water/Air/Land builds only.</li>
+<li>Glyph column; one marker lookup; picker hint labels.</li>
+<li>DX-Pro build flag, sprite dispatch, two-step menu, <code>pro_*</code> targets, measure nRF sizes first.</li>
+<li>Phase 1 <code>C1</code> tokens (only needed once a host can hold any species).
+Each step is separately shippable; steps 1-3 touch no wire bytes.</li>
+</ol>
+<h2 id="7-open-decisions-for-the-owner">7. Open decisions for the owner</h2>
+<ol>
+<li>~~Keep rule R0 (same set always visits same set), or enforce habitats even inside a set?~~ <strong>Decided by owner 2026-11-08: keep R0. A creature can always visit its own habitat group.</strong></li>
+<li>~~May fliers visit water hosts~~ <strong>Decided by owner 2026-11-08: only swimmers may visit water hosts (for example Duck and Swan), so fliers never do.</strong> <strong>Decided by owner 2026-11-08: yes, split the Water tank into a surface band and an underwater band.</strong> Follow-up: the Water tank needs a layout change to show surface and sub-surface swimmers side by side (for example Penguin and Duck).</li>
+<li>Legacy DX hosts and unannounced visitors: allow as fish (my default, no regression) or deny?</li>
+<li>Which borderline animals get extra abilities: Seal (walk); Otter, Hippo, Duck, Swan, Penguin (swim); Lizard and Snake amphibious or land-only?</li>
+<li>Mythic homes: Dragon and Dragon face land+air, Phoenix air-only, Unicorn/Sauropod/T-Rex land. OK, or Phoenix land+air?</li>
+<li>Wire: Phase 0 only for now, or go straight to the C1 token; must old Water/Air/Land test builds stay at full fidelity (REQ second line)?</li>
+<li>Picker: show contacts whose emoji hints "can't visit" greyed, hide them, or show normally?</li>
+<li>Should every species build recognise all emoji markers (my default), or only its own?</li>
+<li>DX-Pro: ship it at all, on which boards, and measure nRF sizes before deciding for those six?</li>
+<li>DX-Pro menu: set first then species (my default), and mystery egg inside the chosen set or across all 72?</li>
+<li>Cross-set breeding in DX-Pro: allowed, or only same-set pairs?</li>
+<li>Wording and name of the edition ("Pro", "All") and the new "can't reach" message text.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.action.edit", "content.code.copy", "search.highlight", "search.suggest"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

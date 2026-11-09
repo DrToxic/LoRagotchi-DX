@@ -314,7 +314,7 @@
   <span class="md-ellipsis">
     
   
-    Build DX, Water or Air from main
+    Build DX, Water, Air or Land from main
   
 
     
@@ -630,6 +630,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../creature-compatibility/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Creature compatibility: design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../docs/" class="md-nav__link">
         
   
@@ -638,6 +665,33 @@
     
   
     Local Documentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dxpro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DX-Pro edition
   
 
     
@@ -1232,10 +1286,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_35" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_37" >
         
           
-          <label class="md-nav__link" for="__nav_35" id="__nav_35_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_37" id="__nav_37_label" tabindex="0">
             
   
   
@@ -1253,8 +1307,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_35_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_35">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_37_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_37">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1930,10 +1984,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_36" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_38" >
         
           
-          <label class="md-nav__link" for="__nav_36" id="__nav_36_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_38" id="__nav_38_label" tabindex="0">
             
   
   
@@ -1951,8 +2005,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_36_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_36">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_38_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_38">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2040,10 +2094,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_37" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_39" >
         
           
-          <label class="md-nav__link" for="__nav_37" id="__nav_37_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_39" id="__nav_39_label" tabindex="0">
             
   
   
@@ -2061,8 +2115,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_37_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_37">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_39_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_39">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2232,7 +2286,7 @@ LFG1|COMMIT|tx|fish|C|palette_body|palette_scales|palette_eyes|tint|H1|body_gene
 are rendering-only sentinels, never persisted genes. Base fields are nearest legacy
 palette; tint is uint16 RGB565. P1: 0 Blue, 1 White, 2 Yellow/Blue (fish lower region
 transfers cyan). Existing ARRIVED/RECALL/RETURN/CANCEL1/AQUARIUM1 remain unchanged.</p>
-<p>Only an exact expected-peer/transaction <strong>ACK ending S1</strong> enables optional fields.
+<p>Only an exact expected-peer/transaction ACK with the <strong>exact S1 or S1|A1 suffix</strong> enables optional fields.
 A plain ACK produces exactly the old nine fields, no H1/P1/S1 suffix. Old RX requires
 n==9; do not advertise S1 until a new receiver actually preserves the metadata.
 Cache/retry the same complete negotiated COMMIT; test loss of the first COMMIT.
